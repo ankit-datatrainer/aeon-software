@@ -168,7 +168,6 @@ document.addEventListener('DOMContentLoaded', () => {
         let mouseY = window.innerHeight / 2;
         let ringX = mouseX;
         let ringY = mouseY;
-        let cursorTextSpan = null;
 
         window.addEventListener('mousemove', (e) => {
             mouseX = e.clientX;
@@ -182,33 +181,17 @@ document.addEventListener('DOMContentLoaded', () => {
             gsap.set(cursorRing, { x: ringX, y: ringY });
         });
 
-        const hoverTargets = document.querySelectorAll('a, button, [data-magnetic], [data-cursor-text], input, select, textarea, .service-card, .work-card, .industry-card');
+        const hoverTargets = document.querySelectorAll('a, button, [data-magnetic], input, select, textarea, .service-card, .work-card, .industry-card, .tech-chip');
 
         hoverTargets.forEach(el => {
             el.addEventListener('mouseenter', () => {
-                cursorRing.classList.add('hovered');
-                const cursorText = el.getAttribute('data-cursor-text');
-                if (cursorText) {
-                    if (!cursorTextSpan) {
-                        cursorTextSpan = document.createElement('span');
-                        cursorTextSpan.className = 'cursor-text';
-                        cursorTextSpan.style.cssText = 'position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:10px;font-weight:700;white-space:nowrap;pointer-events:none;color:#fff;text-transform:uppercase;letter-spacing:0.08em;';
-                        cursorRing.appendChild(cursorTextSpan);
-                    }
-                    cursorTextSpan.innerHTML = cursorText;
-                    cursorTextSpan.style.display = 'block';
-                    gsap.to(cursorRing, { scale: 3.2, duration: 0.3, ease: 'power2.out' });
-                } else {
-                    gsap.to(cursorRing, { scale: 1.6, duration: 0.3, ease: 'power2.out' });
-                }
+                cursorRing.classList.add('hover');
+                gsap.to(cursorRing, { scale: 1.5, duration: 0.25, ease: 'power2.out' });
             });
 
             el.addEventListener('mouseleave', () => {
-                cursorRing.classList.remove('hovered');
-                gsap.to(cursorRing, { scale: 1, duration: 0.3, ease: 'power2.out' });
-                if (cursorTextSpan) {
-                    cursorTextSpan.style.display = 'none';
-                }
+                cursorRing.classList.remove('hover');
+                gsap.to(cursorRing, { scale: 1, duration: 0.25, ease: 'power2.out' });
             });
         });
     }
@@ -503,19 +486,26 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // ==============================================================
-    // 8. HORIZONTAL SCROLL SERVICES — PINNED WITH MOUSE SCROLL
-    // (Requested: "when I scroll my card scrolls with the mouse")
+    // 8. HORIZONTAL SCROLL SERVICES — PINNED WITH FLUID CONTROLS
+    // (Effortless Mouse Scroll, Prev/Next Navigation, Drag & 3D Tilt)
     // ==============================================================
-    const servicesScrollWrap = document.querySelector('.services-scroll-wrap');
+    const servicesSection = document.getElementById('services');
+    const servicesScrollWrap = document.getElementById('servicesScrollWrap');
     const servicesTrack = document.getElementById('servicesTrack');
+    const progressFill = document.getElementById('servicesProgressFill');
+    const scCurrent = document.querySelector('.services-counter .sc-current');
+    const prevBtn = document.getElementById('servicesPrev');
+    const nextBtn = document.getElementById('servicesNext');
 
-    if (servicesScrollWrap && servicesTrack) {
+    if (servicesSection && servicesTrack) {
         let horizontalTween = null;
+        let servicesST = null;
+        let scrollDist = 2000;
 
         function initHorizontalScroll() {
             // Clean up old triggers
             ScrollTrigger.getAll().forEach(st => {
-                if (st.trigger === servicesScrollWrap) st.kill();
+                if (st.trigger === servicesSection || st.trigger === servicesScrollWrap) st.kill();
             });
 
             // On mobile (< 768px), allow native momentum swipe without pin
@@ -524,42 +514,37 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            const totalScrollWidth = servicesTrack.scrollWidth - window.innerWidth + 120;
+            const totalScrollWidth = servicesTrack.scrollWidth - window.innerWidth + 100;
             if (totalScrollWidth <= 0) return;
+
+            // Calibrated scroll distance so users glide easily without fatigue
+            scrollDist = Math.min(2200, Math.round(totalScrollWidth * 0.6));
 
             horizontalTween = gsap.to(servicesTrack, {
                 x: -totalScrollWidth,
                 ease: 'none',
                 scrollTrigger: {
-                    trigger: servicesScrollWrap,
+                    trigger: servicesSection,
                     pin: true,
-                    scrub: 0.8,
+                    scrub: 0.5,
                     start: 'top top',
-                    end: () => `+=${totalScrollWidth}`,
+                    end: () => `+=${scrollDist}`,
                     invalidateOnRefresh: true,
-                    anticipatePin: 1
-                }
-            });
-
-            const serviceCards = document.querySelectorAll('.service-card');
-            serviceCards.forEach((card) => {
-                gsap.fromTo(card,
-                    { y: 25, opacity: 0.7, scale: 0.96 },
-                    {
-                        y: 0,
-                        opacity: 1,
-                        scale: 1,
-                        duration: 1,
-                        ease: 'power2.out',
-                        scrollTrigger: {
-                            trigger: card,
-                            containerAnimation: horizontalTween,
-                            start: 'left 95%',
-                            end: 'left 60%',
-                            scrub: 1
+                    anticipatePin: 1,
+                    onUpdate: (self) => {
+                        servicesST = self;
+                        // Update progress bar
+                        if (progressFill) {
+                            const pct = Math.max(8.33, self.progress * 100);
+                            progressFill.style.width = `${pct}%`;
+                        }
+                        // Update live counter (01 to 12)
+                        if (scCurrent) {
+                            const cardIndex = Math.min(12, Math.max(1, Math.ceil(self.progress * 11) + 1));
+                            scCurrent.textContent = cardIndex < 10 ? `0${cardIndex}` : `${cardIndex}`;
                         }
                     }
-                );
+                }
             });
         }
 
@@ -567,27 +552,70 @@ document.addEventListener('DOMContentLoaded', () => {
             initHorizontalScroll();
             ScrollTrigger.refresh();
         });
-        setTimeout(initHorizontalScroll, 200);
+        setTimeout(initHorizontalScroll, 300);
 
         window.addEventListener('resize', () => {
             clearTimeout(resizeTimer);
             resizeTimer = setTimeout(initHorizontalScroll, 200);
         }, { passive: true });
 
-        // Interactive 3D Card Tilt with Mouse
+        // Prev & Next Buttons for 1-Click Smooth Card Navigation
+        if (prevBtn && nextBtn) {
+            nextBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const step = scrollDist / 11;
+                window.scrollBy({ top: step, behavior: 'smooth' });
+            });
+
+            prevBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const step = scrollDist / 11;
+                window.scrollBy({ top: -step, behavior: 'smooth' });
+            });
+        }
+
+        // Drag-to-Scroll on Services Track
+        if (servicesScrollWrap) {
+            let isDragging = false;
+            let dragStartX = 0;
+            let dragStartScrollY = 0;
+
+            servicesScrollWrap.addEventListener('mousedown', (e) => {
+                // Ignore button clicks
+                if (e.target.closest('button') || e.target.closest('a')) return;
+                isDragging = true;
+                dragStartX = e.pageX;
+                dragStartScrollY = window.scrollY;
+                servicesScrollWrap.style.cursor = 'grabbing';
+            });
+
+            window.addEventListener('mouseup', () => {
+                if (isDragging) {
+                    isDragging = false;
+                    if (servicesScrollWrap) servicesScrollWrap.style.cursor = 'grab';
+                }
+            });
+
+            window.addEventListener('mousemove', (e) => {
+                if (!isDragging) return;
+                const deltaX = e.pageX - dragStartX;
+                const targetY = dragStartScrollY - (deltaX * 1.6);
+                window.scrollTo({ top: targetY, behavior: 'auto' });
+            });
+        }
+
+        // Interactive 3D Card Tilt with Mouse (Clean, No Clashing Text)
         const serviceCards = document.querySelectorAll('.service-card');
         if (!isTouchDevice) {
             serviceCards.forEach(card => {
-                card.setAttribute('data-cursor-text', 'Explore');
-
                 card.addEventListener('mousemove', (e) => {
                     const rect = card.getBoundingClientRect();
                     const x = e.clientX - rect.left;
                     const y = e.clientY - rect.top;
                     const centerX = rect.width / 2;
                     const centerY = rect.height / 2;
-                    const rotateX = ((y - centerY) / centerY) * -7;
-                    const rotateY = ((x - centerX) / centerX) * 7;
+                    const rotateX = ((y - centerY) / centerY) * -6;
+                    const rotateY = ((x - centerX) / centerX) * 6;
 
                     gsap.to(card, {
                         rotateX: rotateX,

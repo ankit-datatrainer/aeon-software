@@ -257,8 +257,8 @@
     <!-- SERVICES SECTION (HORIZONTAL SCROLL) -->
     <!-- ============================================ -->
     <section class="section section-services" id="services">
-        <div class="container">
-            <div class="services-header">
+        <div class="container services-top-bar">
+            <div class="services-header-text">
                 <div class="section-label reveal">
                     <span class="label-line"></span>
                     <span class="label-text">What We Do</span>
@@ -271,11 +271,31 @@
                     across every domain of software engineering.
                 </p>
             </div>
+            <div class="services-controls reveal">
+                <div class="services-counter">
+                    <span class="sc-current">01</span>
+                    <span class="sc-divider">/</span>
+                    <span class="sc-total">12</span>
+                </div>
+                <div class="services-nav-buttons">
+                    <button class="s-nav-btn s-prev" id="servicesPrev" aria-label="Previous service">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+                    </button>
+                    <button class="s-nav-btn s-next" id="servicesNext" aria-label="Next service">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </button>
+                </div>
+            </div>
         </div>
-        <div class="services-scroll-wrap">
+        <div class="container services-progress-container">
+            <div class="services-progress-bar">
+                <div class="services-progress-fill" id="servicesProgressFill"></div>
+            </div>
+        </div>
+        <div class="services-scroll-wrap" id="servicesScrollWrap">
             <div class="services-track" id="servicesTrack">
                 <!-- Card 01 -->
-                <div class="service-card" data-cursor-text="Explore">
+                <div class="service-card">
                     <div class="sc-number">01</div>
                     <div class="sc-icon">
                         <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="6" y="6" width="36" height="36" rx="4"/><path d="M16 20l4 4-4 4"/><line x1="24" y1="28" x2="32" y2="28"/></svg>
@@ -290,7 +310,7 @@
                     </div>
                 </div>
                 <!-- Card 02 -->
-                <div class="service-card" data-cursor-text="Explore">
+                <div class="service-card">
                     <div class="sc-number">02</div>
                     <div class="sc-icon">
                         <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="24" cy="24" r="18"/><path d="M6 24h36"/><path d="M24 6c-5 5-8 11-8 18s3 13 8 18"/><path d="M24 6c5 5 8 11 8 18s-3 13-8 18"/></svg>
@@ -305,7 +325,7 @@
                     </div>
                 </div>
                 <!-- Card 03 -->
-                <div class="service-card" data-cursor-text="Explore">
+                <div class="service-card">
                     <div class="sc-number">03</div>
                     <div class="sc-icon">
                         <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="12" y="4" width="24" height="40" rx="4"/><line x1="20" y1="38" x2="28" y2="38"/></svg>
@@ -320,7 +340,7 @@
                     </div>
                 </div>
                 <!-- Card 04 -->
-                <div class="service-card" data-cursor-text="Explore">
+                <div class="service-card">
                     <div class="sc-number">04</div>
                     <div class="sc-icon">
                         <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M24 8l-16 8v16l16 8 16-8V16L24 8z"/><path d="M24 24v16"/><path d="M8 16l16 8 16-8"/></svg>
@@ -335,7 +355,7 @@
                     </div>
                 </div>
                 <!-- Card 05 -->
-                <div class="service-card" data-cursor-text="Explore">
+                <div class="service-card">
                     <div class="sc-number">05</div>
                     <div class="sc-icon">
                         <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="24" cy="18" r="8"/><path d="M10 40c0-8 6-14 14-14s14 6 14 14"/><circle cx="36" cy="14" r="4"/><path d="M36 18c4 0 8 3 8 8"/></svg>
@@ -350,7 +370,7 @@
                     </div>
                 </div>
                 <!-- Card 06 -->
-                <div class="service-card" data-cursor-text="Explore">
+                <div class="service-card">
                     <div class="sc-number">06</div>
                     <div class="sc-icon">
                         <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 36V20l8-8h16l8 8v16l-8 8H16l-8-8z"/><circle cx="24" cy="24" r="6"/></svg>
@@ -365,7 +385,7 @@
                     </div>
                 </div>
                 <!-- Card 07 -->
-                <div class="service-card" data-cursor-text="Explore">
+                <div class="service-card">
                     <div class="sc-number">07</div>
                     <div class="sc-icon">
                         <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 12h32v28H8z"/><path d="M16 12V8h16v4"/><circle cx="24" cy="26" r="6"/><path d="M20 26l2 2 4-4"/></svg>
@@ -380,7 +400,7 @@
                     </div>
                 </div>
                 <!-- Card 08 -->
-                <div class="service-card" data-cursor-text="Explore">
+                <div class="service-card">
                     <div class="sc-number">08</div>
                     <div class="sc-icon">
                         <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M24 4l4 8 8 1-6 5 2 8-8-4-8 4 2-8-6-5 8-1z"/><circle cx="24" cy="34" r="8"/><path d="M20 34l2 2 4-4"/></svg>
@@ -395,7 +415,7 @@
                     </div>
                 </div>
                 <!-- Card 09 -->
-                <div class="service-card" data-cursor-text="Explore">
+                <div class="service-card">
                     <div class="sc-number">09</div>
                     <div class="sc-icon">
                         <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="8" y="8" width="12" height="12" rx="2"/><rect x="28" y="8" width="12" height="12" rx="2"/><rect x="8" y="28" width="12" height="12" rx="2"/><rect x="28" y="28" width="12" height="12" rx="2"/><path d="M20 14h8M14 20v8M34 20v8M20 34h8"/></svg>
@@ -410,7 +430,7 @@
                     </div>
                 </div>
                 <!-- Card 10 -->
-                <div class="service-card" data-cursor-text="Explore">
+                <div class="service-card">
                     <div class="sc-number">10</div>
                     <div class="sc-icon">
                         <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="24" cy="24" r="6"/><circle cx="24" cy="8" r="3"/><circle cx="24" cy="40" r="3"/><circle cx="8" cy="24" r="3"/><circle cx="40" cy="24" r="3"/><path d="M24 11v7M24 30v7M11 24h7M30 24h7"/></svg>
@@ -425,7 +445,7 @@
                     </div>
                 </div>
                 <!-- Card 11 -->
-                <div class="service-card" data-cursor-text="Explore">
+                <div class="service-card">
                     <div class="sc-number">11</div>
                     <div class="sc-icon">
                         <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 12h36v28H6z"/><path d="M6 12l18 14 18-14"/></svg>
@@ -440,7 +460,7 @@
                     </div>
                 </div>
                 <!-- Card 12 -->
-                <div class="service-card" data-cursor-text="Explore">
+                <div class="service-card">
                     <div class="sc-number">12</div>
                     <div class="sc-icon">
                         <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 8h16v32H16z"/><path d="M8 16h8"/><path d="M32 16h8"/><path d="M8 24h8"/><path d="M32 24h8"/><path d="M8 32h8"/><path d="M32 32h8"/><path d="M22 20l2 2 4-4"/><path d="M22 28l2 2 4-4"/></svg>
@@ -474,66 +494,66 @@
                 <div class="tech-category reveal">
                     <h4 class="tc-title">Frontend</h4>
                     <div class="tc-items">
-                        <span class="tech-chip">React</span>
-                        <span class="tech-chip">Next.js</span>
-                        <span class="tech-chip">Angular</span>
-                        <span class="tech-chip">Vue.js</span>
-                        <span class="tech-chip">TypeScript</span>
-                        <span class="tech-chip">Tailwind CSS</span>
+                        <span class="tech-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React" class="tech-icon" loading="lazy"><span>React</span></span>
+                        <span class="tech-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" alt="Next.js" class="tech-icon" loading="lazy"><span>Next.js</span></span>
+                        <span class="tech-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/angularjs/angularjs-original.svg" alt="Angular" class="tech-icon" loading="lazy"><span>Angular</span></span>
+                        <span class="tech-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vuejs/vuejs-original.svg" alt="Vue.js" class="tech-icon" loading="lazy"><span>Vue.js</span></span>
+                        <span class="tech-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" alt="TypeScript" class="tech-icon" loading="lazy"><span>TypeScript</span></span>
+                        <span class="tech-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg" alt="Tailwind CSS" class="tech-icon" loading="lazy"><span>Tailwind CSS</span></span>
                     </div>
                 </div>
                 <div class="tech-category reveal">
                     <h4 class="tc-title">Backend</h4>
                     <div class="tc-items">
-                        <span class="tech-chip">Node.js</span>
-                        <span class="tech-chip">Python</span>
-                        <span class="tech-chip">Java</span>
-                        <span class="tech-chip">.NET Core</span>
-                        <span class="tech-chip">Go</span>
-                        <span class="tech-chip">Rust</span>
+                        <span class="tech-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" alt="Node.js" class="tech-icon" loading="lazy"><span>Node.js</span></span>
+                        <span class="tech-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python" class="tech-icon" loading="lazy"><span>Python</span></span>
+                        <span class="tech-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" alt="Java" class="tech-icon" loading="lazy"><span>Java</span></span>
+                        <span class="tech-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dotnetcore/dotnetcore-original.svg" alt=".NET Core" class="tech-icon" loading="lazy"><span>.NET Core</span></span>
+                        <span class="tech-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/go/go-original.svg" alt="Go" class="tech-icon" loading="lazy"><span>Go</span></span>
+                        <span class="tech-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/rust/rust-original.svg" alt="Rust" class="tech-icon" loading="lazy"><span>Rust</span></span>
                     </div>
                 </div>
                 <div class="tech-category reveal">
                     <h4 class="tc-title">Mobile</h4>
                     <div class="tc-items">
-                        <span class="tech-chip">React Native</span>
-                        <span class="tech-chip">Flutter</span>
-                        <span class="tech-chip">Swift</span>
-                        <span class="tech-chip">Kotlin</span>
-                        <span class="tech-chip">Xamarin</span>
+                        <span class="tech-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React Native" class="tech-icon" loading="lazy"><span>React Native</span></span>
+                        <span class="tech-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-original.svg" alt="Flutter" class="tech-icon" loading="lazy"><span>Flutter</span></span>
+                        <span class="tech-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/swift/swift-original.svg" alt="Swift" class="tech-icon" loading="lazy"><span>Swift</span></span>
+                        <span class="tech-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kotlin/kotlin-original.svg" alt="Kotlin" class="tech-icon" loading="lazy"><span>Kotlin</span></span>
+                        <span class="tech-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/xamarin/xamarin-original.svg" alt="Xamarin" class="tech-icon" loading="lazy"><span>Xamarin</span></span>
                     </div>
                 </div>
                 <div class="tech-category reveal">
                     <h4 class="tc-title">Cloud & DevOps</h4>
                     <div class="tc-items">
-                        <span class="tech-chip">AWS</span>
-                        <span class="tech-chip">Microsoft Azure</span>
-                        <span class="tech-chip">Google Cloud</span>
-                        <span class="tech-chip">Docker</span>
-                        <span class="tech-chip">Kubernetes</span>
-                        <span class="tech-chip">Terraform</span>
+                        <span class="tech-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original.svg" alt="AWS" class="tech-icon" loading="lazy"><span>AWS</span></span>
+                        <span class="tech-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg" alt="Microsoft Azure" class="tech-icon" loading="lazy"><span>Microsoft Azure</span></span>
+                        <span class="tech-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/googlecloud/googlecloud-original.svg" alt="Google Cloud" class="tech-icon" loading="lazy"><span>Google Cloud</span></span>
+                        <span class="tech-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" alt="Docker" class="tech-icon" loading="lazy"><span>Docker</span></span>
+                        <span class="tech-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-plain.svg" alt="Kubernetes" class="tech-icon" loading="lazy"><span>Kubernetes</span></span>
+                        <span class="tech-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/terraform/terraform-original.svg" alt="Terraform" class="tech-icon" loading="lazy"><span>Terraform</span></span>
                     </div>
                 </div>
                 <div class="tech-category reveal">
                     <h4 class="tc-title">Database</h4>
                     <div class="tc-items">
-                        <span class="tech-chip">PostgreSQL</span>
-                        <span class="tech-chip">MongoDB</span>
-                        <span class="tech-chip">Redis</span>
-                        <span class="tech-chip">Elasticsearch</span>
-                        <span class="tech-chip">MySQL</span>
-                        <span class="tech-chip">Cassandra</span>
+                        <span class="tech-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" alt="PostgreSQL" class="tech-icon" loading="lazy"><span>PostgreSQL</span></span>
+                        <span class="tech-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" alt="MongoDB" class="tech-icon" loading="lazy"><span>MongoDB</span></span>
+                        <span class="tech-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redis/redis-original.svg" alt="Redis" class="tech-icon" loading="lazy"><span>Redis</span></span>
+                        <span class="tech-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/elasticsearch/elasticsearch-original.svg" alt="Elasticsearch" class="tech-icon" loading="lazy"><span>Elasticsearch</span></span>
+                        <span class="tech-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="MySQL" class="tech-icon" loading="lazy"><span>MySQL</span></span>
+                        <span class="tech-chip"><img src="https://cdn.simpleicons.org/apachecassandra" alt="Cassandra" class="tech-icon" loading="lazy"><span>Cassandra</span></span>
                     </div>
                 </div>
                 <div class="tech-category reveal">
                     <h4 class="tc-title">AI & Data</h4>
                     <div class="tc-items">
-                        <span class="tech-chip">TensorFlow</span>
-                        <span class="tech-chip">PyTorch</span>
-                        <span class="tech-chip">OpenAI</span>
-                        <span class="tech-chip">Apache Spark</span>
-                        <span class="tech-chip">Kafka</span>
-                        <span class="tech-chip">Airflow</span>
+                        <span class="tech-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg" alt="TensorFlow" class="tech-icon" loading="lazy"><span>TensorFlow</span></span>
+                        <span class="tech-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pytorch/pytorch-original.svg" alt="PyTorch" class="tech-icon" loading="lazy"><span>PyTorch</span></span>
+                        <span class="tech-chip"><svg class="tech-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M22.2819 9.8211a5.9847 5.9847 0 0 0-.5157-4.9108 6.0462 6.0462 0 0 0-6.5098-2.9A6.0651 6.0651 0 0 0 4.9807 4.1818a5.9847 5.9847 0 0 0-3.9977 2.9 6.0462 6.0462 0 0 0 .7427 7.0966 5.98 5.98 0 0 0 .511 4.9107 6.051 6.051 0 0 0 6.5146 2.9001A5.9847 5.9847 0 0 0 13.2599 24a6.0557 6.0557 0 0 0 5.7718-4.2058 5.9894 5.9894 0 0 0 3.9977-2.9001 6.0557 6.0557 0 0 0-.7475-7.0729zm-9.022 12.6081a4.4755 4.4755 0 0 1-2.8764-1.0408l.1419-.0804 4.7783-2.7582a.7948.7948 0 0 0 .3927-.6813v-6.7369l2.02 1.1683a.071.071 0 0 1 .038.052v5.5826a4.504 4.504 0 0 1-4.4945 4.4947zm-9.6607-4.1254a4.4708 4.4708 0 0 1-.5346-3.0137l.142.0852 4.783 2.7582a.7712.7712 0 0 0 .7806 0l5.8428-3.3685v2.3324a.0804.0804 0 0 1-.0332.0615L9.74 19.9502a4.4992 4.4992 0 0 1-6.1408-1.6464zM2.3408 7.8956a4.485 4.485 0 0 1 2.3655-1.9728V11.6a.7664.7664 0 0 0 .3879.6765l5.8144 3.3543-2.0201 1.1683a.0757.0757 0 0 1-.071 0l-4.8303-2.7865A4.504 4.504 0 0 1 2.3408 7.8956zm16.0993 3.8558L12.5973 8.3829l2.02-1.1636a.0757.0757 0 0 1 .071 0l4.8303 2.7913a4.4944 4.4944 0 0 1-.6765 8.1042v-5.6772a.79.79 0 0 0-.401-.6862zm2.0107-3.0231l-.142-.0852-4.7735-2.7818a.7759.7759 0 0 0-.7854 0L9.407 9.2297V6.8974a.0662.0662 0 0 1 .0284-.0615l4.8303-2.7866a4.4992 4.4992 0 0 1 6.6802 4.66zM8.3065 12.863l-2.02-1.1635a.0804.0804 0 0 1-.038-.0567V6.0748a4.4992 4.4992 0 0 1 7.3757-3.4537l-.142.0805L8.704 5.4597a.7948.7948 0 0 0-.3927.6814v6.722zM12 10.6698l3.1932 1.8415-3.1932 1.8416-3.1932-1.8416L12 10.6698z"/></svg><span>OpenAI</span></span>
+                        <span class="tech-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/apachespark/apachespark-original.svg" alt="Apache Spark" class="tech-icon" loading="lazy"><span>Apache Spark</span></span>
+                        <span class="tech-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/apachekafka/apachekafka-original.svg" alt="Kafka" class="tech-icon" loading="lazy"><span>Kafka</span></span>
+                        <span class="tech-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/apacheairflow/apacheairflow-original.svg" alt="Airflow" class="tech-icon" loading="lazy"><span>Airflow</span></span>
                     </div>
                 </div>
             </div>
@@ -553,7 +573,7 @@
                 Deep domain expertise across critical industries.
             </h2>
             <div class="industries-grid">
-                <div class="industry-card reveal" data-cursor-text="View">
+                <div class="industry-card reveal">
                     <div class="ic-img">
                         <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=600&q=80" alt="Banking and Finance" loading="lazy">
                     </div>
@@ -563,7 +583,7 @@
                         <p class="ic-desc">Secure fintech solutions, digital banking platforms, payment gateways, and regulatory compliance systems.</p>
                     </div>
                 </div>
-                <div class="industry-card reveal" data-cursor-text="View">
+                <div class="industry-card reveal">
                     <div class="ic-img">
                         <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=600&q=80" alt="Healthcare" loading="lazy">
                     </div>
@@ -573,7 +593,7 @@
                         <p class="ic-desc">HIPAA-compliant digital health solutions, telemedicine platforms, EHR systems, and clinical data analytics.</p>
                     </div>
                 </div>
-                <div class="industry-card reveal" data-cursor-text="View">
+                <div class="industry-card reveal">
                     <div class="ic-img">
                         <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=600&q=80" alt="Retail" loading="lazy">
                     </div>
@@ -583,7 +603,7 @@
                         <p class="ic-desc">Omnichannel retail platforms, inventory management, personalisation engines, and seamless checkout experiences.</p>
                     </div>
                 </div>
-                <div class="industry-card reveal" data-cursor-text="View">
+                <div class="industry-card reveal">
                     <div class="ic-img">
                         <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=600&q=80" alt="Manufacturing" loading="lazy">
                     </div>
@@ -593,7 +613,7 @@
                         <p class="ic-desc">Smart factory solutions, IoT integration, predictive maintenance, supply chain optimisation, and MES systems.</p>
                     </div>
                 </div>
-                <div class="industry-card reveal" data-cursor-text="View">
+                <div class="industry-card reveal">
                     <div class="ic-img">
                         <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=600&q=80" alt="Education" loading="lazy">
                     </div>
@@ -603,7 +623,7 @@
                         <p class="ic-desc">Learning management systems, virtual classrooms, adaptive learning platforms, and educational content delivery.</p>
                     </div>
                 </div>
-                <div class="industry-card reveal" data-cursor-text="View">
+                <div class="industry-card reveal">
                     <div class="ic-img">
                         <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=600&q=80" alt="Logistics" loading="lazy">
                     </div>
@@ -635,44 +655,76 @@
                 </a>
             </div>
             <div class="work-grid">
-                <div class="work-card reveal" data-cursor-text="View Case Study">
+                <div class="work-card reveal">
                     <div class="wc-img parallax-wrap" data-speed="0.05">
                         <img src="https://images.unsplash.com/photo-1563986768609-322da13575f2?auto=format&fit=crop&w=900&q=80" alt="Digital Banking Platform" loading="lazy">
+                        <div class="wc-overlay-badge">
+                            <span>View Case Study</span>
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                        </div>
                     </div>
                     <div class="wc-info">
                         <div class="wc-tags"><span>Fintech</span><span>Mobile</span><span>AI</span></div>
                         <h3 class="wc-title">NeoBank Digital Platform</h3>
                         <p class="wc-desc">A full-suite digital banking platform serving 2M+ users with AI-powered financial insights, UPI integration, and real-time transaction processing.</p>
+                        <div class="wc-action">
+                            <span class="wc-action-text">Explore Case Study</span>
+                            <span class="wc-action-arrow">→</span>
+                        </div>
                     </div>
                 </div>
-                <div class="work-card reveal" data-cursor-text="View Case Study">
+                <div class="work-card reveal">
                     <div class="wc-img parallax-wrap" data-speed="0.05">
                         <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=900&q=80" alt="Healthcare Analytics" loading="lazy">
+                        <div class="wc-overlay-badge">
+                            <span>View Case Study</span>
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                        </div>
                     </div>
                     <div class="wc-info">
                         <div class="wc-tags"><span>Healthcare</span><span>Analytics</span><span>Cloud</span></div>
                         <h3 class="wc-title">MedInsight Analytics Suite</h3>
                         <p class="wc-desc">AI-driven clinical analytics platform for a leading hospital chain, processing 50K+ patient records daily with predictive diagnostics and real-time monitoring.</p>
+                        <div class="wc-action">
+                            <span class="wc-action-text">Explore Case Study</span>
+                            <span class="wc-action-arrow">→</span>
+                        </div>
                     </div>
                 </div>
-                <div class="work-card reveal" data-cursor-text="View Case Study">
+                <div class="work-card reveal">
                     <div class="wc-img parallax-wrap" data-speed="0.05">
                         <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=900&q=80" alt="E-Commerce Platform" loading="lazy">
+                        <div class="wc-overlay-badge">
+                            <span>View Case Study</span>
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                        </div>
                     </div>
                     <div class="wc-info">
                         <div class="wc-tags"><span>E-Commerce</span><span>Microservices</span><span>DevOps</span></div>
                         <h3 class="wc-title">ShopSphere Commerce Engine</h3>
                         <p class="wc-desc">Microservices-based e-commerce platform handling 100K+ concurrent users with personalised recommendations and sub-second page loads.</p>
+                        <div class="wc-action">
+                            <span class="wc-action-text">Explore Case Study</span>
+                            <span class="wc-action-arrow">→</span>
+                        </div>
                     </div>
                 </div>
-                <div class="work-card reveal" data-cursor-text="View Case Study">
+                <div class="work-card reveal">
                     <div class="wc-img parallax-wrap" data-speed="0.05">
                         <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=900&q=80" alt="IoT Dashboard" loading="lazy">
+                        <div class="wc-overlay-badge">
+                            <span>View Case Study</span>
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                        </div>
                     </div>
                     <div class="wc-info">
                         <div class="wc-tags"><span>Manufacturing</span><span>IoT</span><span>Real-time</span></div>
                         <h3 class="wc-title">SmartFactory IoT Dashboard</h3>
                         <p class="wc-desc">Real-time IoT monitoring dashboard for 200+ manufacturing units, enabling predictive maintenance and reducing downtime by 40%.</p>
+                        <div class="wc-action">
+                            <span class="wc-action-text">Explore Case Study</span>
+                            <span class="wc-action-arrow">→</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -828,7 +880,7 @@
                 </a>
             </div>
             <div class="insights-grid">
-                <article class="insight-card reveal" data-cursor-text="Read">
+                <article class="insight-card reveal">
                     <div class="icard-img">
                         <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=600&q=80" alt="Generative AI in Enterprise" loading="lazy">
                         <span class="icard-cat">AI & ML</span>
@@ -842,7 +894,7 @@
                         <p class="icard-excerpt">How Indian enterprises are moving past experimentation to deploy production-grade generative AI solutions that deliver measurable ROI.</p>
                     </div>
                 </article>
-                <article class="insight-card reveal" data-cursor-text="Read">
+                <article class="insight-card reveal">
                     <div class="icard-img">
                         <img src="https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=600&q=80" alt="Cloud Native Architecture" loading="lazy">
                         <span class="icard-cat">Cloud</span>
@@ -856,7 +908,7 @@
                         <p class="icard-excerpt">A comprehensive guide to building cloud-native applications with Kubernetes, service mesh, and serverless patterns for maximum scalability.</p>
                     </div>
                 </article>
-                <article class="insight-card reveal" data-cursor-text="Read">
+                <article class="insight-card reveal">
                     <div class="icard-img">
                         <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=600&q=80" alt="Full Stack Development" loading="lazy">
                         <span class="icard-cat">Engineering</span>
