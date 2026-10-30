@@ -88,6 +88,10 @@ html {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+    overflow-y: auto;
+    width: 100%;
+    height: auto;
 }
 
 body {
@@ -98,6 +102,10 @@ body {
     color: var(--text-primary);
     background-color: var(--bg-light);
     overflow-x: hidden;
+    overflow-y: visible;
+    width: 100%;
+    min-height: 100vh;
+    position: relative;
     cursor: default;
 }
 
@@ -223,13 +231,16 @@ select {
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: opacity 0.6s var(--ease-out), visibility 0.6s var(--ease-out);
+    transition: opacity 0.5s var(--ease-out), visibility 0.5s var(--ease-out);
+    pointer-events: all;
 }
 
-#preloader.loaded {
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
+#preloader.loaded,
+#preloader.is-done {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    display: none !important;
 }
 
 .preloader-inner {

@@ -3,7 +3,7 @@
 /* ==============================================================
    AEON SOFTWARE SERVICES — MASTER JAVASCRIPT
    Award-Winning Interactive Animations & Kinetic Experiences
-   Inspired by Awwwards (Stellar Management) & Infosys Excellence
+   100% Native, Fluid, Non-Blocking Architecture
    ============================================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -14,12 +14,25 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ============================================
-    // 1. PRELOADER ANIMATION
+    // 1. PRELOADER ANIMATION & FAILSAFE
     // ============================================
     const preloader = document.getElementById('preloader');
     const plLetters = document.querySelectorAll('.pl-letter');
     const counterNum = document.querySelector('.counter-num');
     const barFill = document.querySelector('.preloader-bar-fill');
+
+    function dismissPreloader() {
+        if (!preloader) return;
+        preloader.classList.add('loaded', 'is-done');
+        preloader.style.opacity = '0';
+        preloader.style.visibility = 'hidden';
+        preloader.style.pointerEvents = 'none';
+        document.body.style.overflow = '';
+        document.body.classList.remove('no-scroll');
+        setTimeout(() => {
+            if (preloader) preloader.style.display = 'none';
+        }, 500);
+    }
 
     function runPreloader() {
         if (!preloader) {
@@ -31,34 +44,33 @@ document.addEventListener('DOMContentLoaded', () => {
             onComplete: () => {
                 gsap.to(preloader, {
                     yPercent: -100,
-                    duration: 1,
+                    duration: 0.8,
                     ease: 'power4.inOut',
-                    delay: 0.2,
                     onComplete: () => {
-                        preloader.style.display = 'none';
-                        preloader.style.pointerEvents = 'none';
-                        document.body.style.overflow = '';
+                        dismissPreloader();
                         triggerHeroAnimations();
-                        ScrollTrigger.refresh();
+                        if (typeof ScrollTrigger !== 'undefined') {
+                            ScrollTrigger.refresh();
+                        }
                     }
                 });
             }
         });
 
-        // Animate letters A, E, O, N
+        // Letters reveal
         if (plLetters.length) {
             preloaderTL.fromTo(plLetters, 
-                { opacity: 0, y: 35 },
-                { opacity: 1, y: 0, duration: 0.6, stagger: 0.08, ease: 'power3.out' }
+                { opacity: 0, y: 30 },
+                { opacity: 1, y: 0, duration: 0.5, stagger: 0.08, ease: 'power3.out' }
             );
         }
 
-        // Animate counter from 0 to 100
+        // Counter 0 -> 100
         const counterObj = { val: 0 };
         if (counterNum) {
             preloaderTL.to(counterObj, {
                 val: 100,
-                duration: 1.6,
+                duration: 1.2,
                 ease: 'power2.inOut',
                 onUpdate: () => {
                     counterNum.textContent = Math.round(counterObj.val);
@@ -66,30 +78,44 @@ document.addEventListener('DOMContentLoaded', () => {
             }, '-=0.2');
         }
 
-        // Animate progress bar
+        // Progress bar
         if (barFill) {
             preloaderTL.to(barFill, {
                 width: '100%',
-                duration: 1.6,
+                duration: 1.2,
                 ease: 'power2.inOut'
             }, '<');
         }
+
+        // Failsafe timer: preloader MUST dismiss within 2.2 seconds no matter what
+        setTimeout(() => {
+            if (preloader && preloader.style.display !== 'none') {
+                dismissPreloader();
+                triggerHeroAnimations();
+            }
+        }, 2200);
+    }
+
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('skip_preloader') === '1') {
+        dismissPreloader();
+        triggerHeroAnimations(true);
+    } else {
+        runPreloader();
     }
 
     // ============================================
-    // 5. HERO SECTION ENTRANCE ANIMATIONS
+    // 2. HERO SECTION ENTRANCE ANIMATIONS
     // ============================================
     let heroTL = null;
     function triggerHeroAnimations(jumpToEnd = false) {
         heroTL = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
-        // Hero badge
         const heroBadge = document.querySelector('.hero-badge');
         if (heroBadge) {
-            heroTL.fromTo(heroBadge, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.8 });
+            heroTL.fromTo(heroBadge, { opacity: 0, y: 25 }, { opacity: 1, y: 0, duration: 0.7 });
         }
 
-        // Hero title words — masked reveal
         const htLines = document.querySelectorAll('.ht-line');
         htLines.forEach(line => { line.style.overflow = 'hidden'; });
 
@@ -97,76 +123,33 @@ document.addEventListener('DOMContentLoaded', () => {
         if (htWords.length) {
             heroTL.fromTo(htWords, 
                 { y: '110%', opacity: 0 },
-                { y: '0%', opacity: 1, duration: 1, stagger: 0.08, ease: 'power4.out' },
-                '-=0.4'
+                { y: '0%', opacity: 1, duration: 0.9, stagger: 0.08, ease: 'power4.out' },
+                '-=0.3'
             );
         }
 
-        // Hero description
         const heroDesc = document.querySelector('.hero-desc');
         if (heroDesc) {
-            heroTL.fromTo(heroDesc, { opacity: 0, y: 25 }, { opacity: 1, y: 0, duration: 0.8 }, '-=0.5');
+            heroTL.fromTo(heroDesc, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.7 }, '-=0.4');
         }
 
-        // Hero buttons
         const heroButtons = document.querySelector('.hero-buttons');
         if (heroButtons) {
-            heroTL.fromTo(heroButtons, { opacity: 0, y: 25 }, { opacity: 1, y: 0, duration: 0.8 }, '-=0.5');
+            heroTL.fromTo(heroButtons, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.7 }, '-=0.4');
         }
 
-        // Scroll indicator
         const scrollIndicator = document.querySelector('.hero-scroll-indicator');
         if (scrollIndicator) {
-            heroTL.fromTo(scrollIndicator, { opacity: 0 }, { opacity: 1, duration: 0.8 }, '-=0.3');
+            heroTL.fromTo(scrollIndicator, { opacity: 0 }, { opacity: 1, duration: 0.7 }, '-=0.3');
         }
 
-        // Bottom strip items
         const stripItems = document.querySelectorAll('.hero-bottom-strip .strip-item, .hero-bottom-strip .strip-divider');
         if (stripItems.length) {
-            heroTL.fromTo(stripItems, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.6, stagger: 0.08 }, '-=0.5');
+            heroTL.fromTo(stripItems, { opacity: 0, y: 15 }, { opacity: 1, y: 0, duration: 0.5, stagger: 0.08 }, '-=0.4');
         }
 
         if (jumpToEnd) {
             heroTL.progress(1);
-        }
-    }
-
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.get('skip_preloader') === '1') {
-        if (preloader) {
-            preloader.style.display = 'none';
-            preloader.style.pointerEvents = 'none';
-        }
-        document.body.style.overflow = '';
-        triggerHeroAnimations(true);
-
-    } else {
-        runPreloader();
-    }
-    let lenis = null;
-    if (typeof Lenis !== 'undefined') {
-        lenis = new Lenis({
-            duration: 1.2,
-            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-            direction: 'vertical',
-            gestureDirection: 'vertical',
-            smooth: true,
-            smoothTouch: false,
-            touchMultiplier: 1.8
-        });
-
-        // Connect Lenis to GSAP ScrollTrigger
-        lenis.on('scroll', ScrollTrigger.update);
-        gsap.ticker.add((time) => { lenis.raf(time * 1000); });
-        gsap.ticker.lagSmoothing(0);
-
-        const scrollToTarget = urlParams.get('scroll_to');
-        if (scrollToTarget) {
-            const el = document.getElementById(scrollToTarget);
-            if (el) {
-                lenis.scrollTo(el, { immediate: true });
-                ScrollTrigger.refresh();
-            }
         }
     }
 
@@ -193,14 +176,12 @@ document.addEventListener('DOMContentLoaded', () => {
             gsap.set(cursorDot, { x: mouseX, y: mouseY });
         }, { passive: true });
 
-        // Smooth trailing for the ring
         gsap.ticker.add(() => {
-            ringX += (mouseX - ringX) * 0.2;
-            ringY += (mouseY - ringY) * 0.2;
+            ringX += (mouseX - ringX) * 0.22;
+            ringY += (mouseY - ringY) * 0.22;
             gsap.set(cursorRing, { x: ringX, y: ringY });
         });
 
-        // Hover targets
         const hoverTargets = document.querySelectorAll('a, button, [data-magnetic], [data-cursor-text], input, select, textarea, .service-card, .work-card, .industry-card');
 
         hoverTargets.forEach(el => {
@@ -286,26 +267,23 @@ document.addEventListener('DOMContentLoaded', () => {
         const h = canvas.offsetHeight;
         ctx.clearRect(0, 0, w, h);
 
-        // Update & draw particles
         for (let i = 0; i < particles.length; i++) {
             const p = particles[i];
             p.x += p.vx;
             p.y += p.vy;
 
-            // Bounce off edges
             if (p.x < 0 || p.x > w) p.vx *= -1;
             if (p.y < 0 || p.y > h) p.vy *= -1;
             p.x = Math.max(0, Math.min(w, p.x));
             p.y = Math.max(0, Math.min(h, p.y));
 
-            // Mouse interaction (gentle attraction/repulsion)
             const mdx = mousePos.x - p.x;
             const mdy = mousePos.y - p.y;
             const mdist = Math.sqrt(mdx * mdx + mdy * mdy);
             if (mdist < mousePos.radius) {
-                const force = (1 - mdist / mousePos.radius) * 0.6;
-                p.x -= (mdx / mdist) * force * 2;
-                p.y -= (mdy / mdist) * force * 2;
+                const force = (1 - mdist / mousePos.radius) * 0.5;
+                p.x -= (mdx / mdist) * force * 1.8;
+                p.y -= (mdy / mdist) * force * 1.8;
             }
 
             ctx.beginPath();
@@ -314,7 +292,6 @@ document.addEventListener('DOMContentLoaded', () => {
             ctx.fill();
         }
 
-        // Draw connections
         for (let i = 0; i < particles.length; i++) {
             for (let j = i + 1; j < particles.length; j++) {
                 const dx = particles[i].x - particles[j].x;
@@ -331,17 +308,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
 
-            // Connection to mouse
             const mdx = mousePos.x - particles[i].x;
             const mdy = mousePos.y - particles[i].y;
             const mdist = Math.sqrt(mdx * mdx + mdy * mdy);
             if (mdist < mousePos.radius) {
-                const opacity = (1 - mdist / mousePos.radius) * 0.45;
+                const opacity = (1 - mdist / mousePos.radius) * 0.4;
                 ctx.beginPath();
                 ctx.moveTo(particles[i].x, particles[i].y);
                 ctx.lineTo(mousePos.x, mousePos.y);
                 ctx.strokeStyle = `rgba(147, 197, 253, ${opacity})`;
-                ctx.lineWidth = 0.8;
+                ctx.lineWidth = 0.7;
                 ctx.stroke();
             }
         }
@@ -355,7 +331,6 @@ document.addEventListener('DOMContentLoaded', () => {
         drawParticles();
     }
 
-    // Debounced resize
     let resizeTimer;
     window.addEventListener('resize', () => {
         clearTimeout(resizeTimer);
@@ -364,12 +339,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 resizeCanvas();
                 createParticles();
             }
-            ScrollTrigger.refresh();
+            if (typeof ScrollTrigger !== 'undefined') {
+                ScrollTrigger.refresh();
+            }
         }, 200);
     }, { passive: true });
 
     // ============================================
-    // 6. NAVIGATION & HEADER CONTROLS
+    // 5. NAVIGATION & HEADER SCROLL BEHAVIOR
     // ============================================
     const header = document.getElementById('header');
     const hamburger = document.getElementById('hamburger');
@@ -378,54 +355,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const mobileLinks = document.querySelectorAll('.mobile-link');
     const sections = document.querySelectorAll('section[id]');
 
-    let lastScrollY = 0;
-    let headerHidden = false;
+    let lastScrollY = window.scrollY;
 
-    function handleScrollHeader(currentY) {
-        if (!header) return;
+    window.addEventListener('scroll', () => {
+        const currentY = window.scrollY;
 
-        // Scrolled glassmorphism styling
-        if (currentY > 80) {
+        // Scrolled background & pill elevation style
+        if (currentY > 40) {
             header.classList.add('scrolled');
         } else {
             header.classList.remove('scrolled');
         }
 
-        // Auto hide on scroll down, show on scroll up
-        if (currentY > lastScrollY && currentY > 250) {
-            if (!headerHidden) {
-                gsap.to(header, { yPercent: -100, duration: 0.4, ease: 'power3.out' });
-                headerHidden = true;
-            }
-        } else {
-            if (headerHidden) {
-                gsap.to(header, { yPercent: 0, duration: 0.4, ease: 'power3.out' });
-                headerHidden = false;
-            }
-        }
-
-        // Keep visible at top
-        if (currentY <= 15) {
-            gsap.set(header, { yPercent: 0 });
-            headerHidden = false;
-        }
-
         lastScrollY = currentY;
-    }
 
-    if (lenis) {
-        lenis.on('scroll', (e) => {
-            const currentY = e.animatedScroll || e.scroll || window.scrollY;
-            handleScrollHeader(currentY);
-        });
-    } else {
-        window.addEventListener('scroll', () => {
-            handleScrollHeader(window.scrollY);
-        }, { passive: true });
-    }
-
-    // Active navigation link highlighting based on scroll
-    function updateActiveNav() {
+        // Highlight active section in navigation pill
         let currentSection = '';
         sections.forEach(sec => {
             const rect = sec.getBoundingClientRect();
@@ -439,19 +383,36 @@ document.addEventListener('DOMContentLoaded', () => {
                 link.classList.add('active');
             }
         });
-    }
-    window.addEventListener('scroll', updateActiveNav, { passive: true });
+    }, { passive: true });
 
-    // Mobile menu toggle
+    // Smooth Anchor Navigation
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', (e) => {
+            const href = anchor.getAttribute('href');
+            if (href === '#' || !href) return;
+            const target = document.querySelector(href);
+            if (!target) return;
+            e.preventDefault();
+            const headerOffset = 70;
+            const elementPosition = target.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+            window.scrollTo({
+                top: offsetPosition,
+                behavior: 'smooth'
+            });
+        });
+    });
+
+    // Mobile Menu Controls
     if (hamburger && mobileMenu) {
         hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
             hamburger.classList.toggle('open');
             mobileMenu.classList.toggle('active');
+            mobileMenu.classList.toggle('open');
             if (mobileMenu.classList.contains('active')) {
-                if (lenis) lenis.stop();
                 document.body.classList.add('no-scroll');
             } else {
-                if (lenis) lenis.start();
                 document.body.classList.remove('no-scroll');
             }
         });
@@ -459,16 +420,22 @@ document.addEventListener('DOMContentLoaded', () => {
         mobileLinks.forEach(link => {
             link.addEventListener('click', (e) => {
                 e.preventDefault();
+                hamburger.classList.remove('active');
                 hamburger.classList.remove('open');
                 mobileMenu.classList.remove('active');
+                mobileMenu.classList.remove('open');
                 document.body.classList.remove('no-scroll');
-                if (lenis) lenis.start();
                 const target = link.getAttribute('href');
                 if (target && target.startsWith('#')) {
                     const el = document.querySelector(target);
                     if (el) {
-                        if (lenis) lenis.scrollTo(el, { offset: -70 });
-                        else el.scrollIntoView({ behavior: 'smooth' });
+                        const headerOffset = 70;
+                        const elementPosition = el.getBoundingClientRect().top;
+                        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: 'smooth'
+                        });
                     }
                 }
             });
@@ -476,23 +443,22 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ============================================
-    // 7. SCROLL REVEAL ANIMATIONS (FROMTO)
+    // 6. SCROLL REVEAL ANIMATIONS (GSAP FROMTO)
     // ============================================
     const revealElements = document.querySelectorAll('.reveal');
     revealElements.forEach(el => {
-        // Skip elements inside hero which are handled by heroTL
         if (el.closest('.hero')) return;
 
         gsap.fromTo(el, 
-            { y: 40, opacity: 0 },
+            { y: 35, opacity: 0 },
             {
                 y: 0,
                 opacity: 1,
-                duration: 0.9,
+                duration: 0.85,
                 ease: 'power3.out',
                 scrollTrigger: {
                     trigger: el,
-                    start: 'top 85%',
+                    start: 'top 88%',
                     toggleActions: 'play none none none'
                 }
             }
@@ -500,7 +466,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // ============================================
-    // 8. SPLIT TEXT HEADINGS ANIMATION
+    // 7. SPLIT TEXT HEADINGS ANIMATION
     // ============================================
     const splitTextEls = document.querySelectorAll('.split-text');
     splitTextEls.forEach(el => {
@@ -524,12 +490,12 @@ document.addEventListener('DOMContentLoaded', () => {
             {
                 y: '0%',
                 opacity: 1,
-                duration: 0.8,
+                duration: 0.75,
                 stagger: 0.03,
                 ease: 'power3.out',
                 scrollTrigger: {
                     trigger: el,
-                    start: 'top 85%',
+                    start: 'top 88%',
                     toggleActions: 'play none none none'
                 }
             }
@@ -537,7 +503,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // ==============================================================
-    // 9. HORIZONTAL SCROLL SERVICES — PINNED CARDS WITH MOUSE SCROLL
+    // 8. HORIZONTAL SCROLL SERVICES — PINNED WITH MOUSE SCROLL
     // (Requested: "when I scroll my card scrolls with the mouse")
     // ==============================================================
     const servicesScrollWrap = document.querySelector('.services-scroll-wrap');
@@ -547,31 +513,27 @@ document.addEventListener('DOMContentLoaded', () => {
         let horizontalTween = null;
 
         function initHorizontalScroll() {
-            // Kill existing triggers for this section
+            // Clean up old triggers
             ScrollTrigger.getAll().forEach(st => {
-                if (st.trigger === servicesScrollWrap || (st.vars && st.vars.containerAnimation === horizontalTween)) {
-                    st.kill();
-                }
+                if (st.trigger === servicesScrollWrap) st.kill();
             });
 
-            // On mobile viewports (< 768px), allow natural touch/horizontal scroll without aggressive pinning
+            // On mobile (< 768px), allow native momentum swipe without pin
             if (window.innerWidth < 768) {
                 gsap.set(servicesTrack, { clearProps: 'all' });
                 return;
             }
 
-            // Calculate total distance required to reveal all 12 cards
-            const totalScrollWidth = servicesTrack.scrollWidth - window.innerWidth + 140;
+            const totalScrollWidth = servicesTrack.scrollWidth - window.innerWidth + 120;
             if (totalScrollWidth <= 0) return;
 
-            // Pin and horizontally scroll the track with vertical mouse wheel
             horizontalTween = gsap.to(servicesTrack, {
                 x: -totalScrollWidth,
                 ease: 'none',
                 scrollTrigger: {
                     trigger: servicesScrollWrap,
                     pin: true,
-                    scrub: 1,
+                    scrub: 0.8,
                     start: 'top top',
                     end: () => `+=${totalScrollWidth}`,
                     invalidateOnRefresh: true,
@@ -579,11 +541,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
 
-            // Synchronize each individual service card with the horizontal scroll
             const serviceCards = document.querySelectorAll('.service-card');
             serviceCards.forEach((card) => {
                 gsap.fromTo(card,
-                    { y: 35, opacity: 0.7, scale: 0.95 },
+                    { y: 25, opacity: 0.7, scale: 0.96 },
                     {
                         y: 0,
                         opacity: 1,
@@ -602,11 +563,15 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
-        setTimeout(initHorizontalScroll, 150);
+        window.addEventListener('load', () => {
+            initHorizontalScroll();
+            ScrollTrigger.refresh();
+        });
+        setTimeout(initHorizontalScroll, 200);
 
         window.addEventListener('resize', () => {
             clearTimeout(resizeTimer);
-            resizeTimer = setTimeout(initHorizontalScroll, 250);
+            resizeTimer = setTimeout(initHorizontalScroll, 200);
         }, { passive: true });
 
         // Interactive 3D Card Tilt with Mouse
@@ -621,8 +586,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     const y = e.clientY - rect.top;
                     const centerX = rect.width / 2;
                     const centerY = rect.height / 2;
-                    const rotateX = ((y - centerY) / centerY) * -8;
-                    const rotateY = ((x - centerX) / centerX) * 8;
+                    const rotateX = ((y - centerY) / centerY) * -7;
+                    const rotateY = ((x - centerX) / centerX) * 7;
 
                     gsap.to(card, {
                         rotateX: rotateX,
@@ -639,42 +604,16 @@ document.addEventListener('DOMContentLoaded', () => {
                         rotateX: 0,
                         rotateY: 0,
                         y: 0,
-                        duration: 0.5,
+                        duration: 0.45,
                         ease: 'power2.out'
                     });
                 });
-            });
-
-            // Mouse Drag-to-Scroll on Services Track
-            let isDown = false;
-            let startX = 0;
-            let scrollLeftInitial = 0;
-
-            servicesScrollWrap.addEventListener('mousedown', (e) => {
-                isDown = true;
-                startX = e.pageX;
-                servicesScrollWrap.style.cursor = 'grabbing';
-            });
-
-            window.addEventListener('mouseup', () => {
-                if (isDown) {
-                    isDown = false;
-                    servicesScrollWrap.style.cursor = '';
-                }
-            });
-
-            window.addEventListener('mousemove', (e) => {
-                if (!isDown || !lenis) return;
-                const x = e.pageX;
-                const walk = (x - startX) * 2;
-                lenis.scrollTo(window.scrollY - walk, { immediate: true });
-                startX = x;
             });
         }
     }
 
     // ============================================
-    // 10. PARALLAX IMAGE SCROLLING
+    // 9. PARALLAX IMAGE SCROLLING
     // ============================================
     const parallaxWraps = document.querySelectorAll('.parallax-wrap');
     parallaxWraps.forEach(wrap => {
@@ -682,7 +621,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!img) return;
         const speed = parseFloat(wrap.getAttribute('data-speed')) || 0.08;
         gsap.to(img, {
-            yPercent: -18,
+            yPercent: -16,
             ease: 'none',
             scrollTrigger: {
                 trigger: wrap,
@@ -694,7 +633,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // ============================================
-    // 11. STATS COUNTER ANIMATION
+    // 10. STATS COUNTER ANIMATION
     // ============================================
     const counters = document.querySelectorAll('.counter');
     counters.forEach(counter => {
@@ -708,7 +647,7 @@ document.addEventListener('DOMContentLoaded', () => {
             onEnter: () => {
                 gsap.to(counterObj, {
                     val: target,
-                    duration: 2.2,
+                    duration: 2.0,
                     ease: 'power2.out',
                     snap: { val: 1 },
                     onUpdate: () => {
@@ -720,7 +659,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // ============================================
-    // 12. MARQUEE VELOCITY & SKEW EFFECT
+    // 11. MARQUEE VELOCITY & SKEW EFFECT
     // ============================================
     const marqueeTrack = document.querySelector('.marquee-track');
     if (marqueeTrack) {
@@ -730,7 +669,7 @@ document.addEventListener('DOMContentLoaded', () => {
             end: 'bottom bottom',
             onUpdate: (self) => {
                 const velocity = self.getVelocity();
-                const skew = Math.max(-4, Math.min(4, velocity / 350));
+                const skew = Math.max(-3.5, Math.min(3.5, velocity / 400));
                 gsap.to(marqueeTrack, {
                     skewX: skew,
                     duration: 0.3,
@@ -742,7 +681,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ============================================
-    // 13. KINETIC MAGNETIC BUTTON EFFECT
+    // 12. KINETIC MAGNETIC BUTTON EFFECT
     // ============================================
     const magneticElements = document.querySelectorAll('[data-magnetic]');
     if (!isTouchDevice) {
@@ -774,7 +713,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ============================================
-    // 14. TESTIMONIALS SLIDER
+    // 13. TESTIMONIALS SLIDER
     // ============================================
     const testimonialCards = document.querySelectorAll('.testimonial-card');
     const tnDots = document.querySelectorAll('.tn-dot');
@@ -868,7 +807,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ============================================
-    // 15. INDUSTRY CARDS — 3D PERSPECTIVE TILT
+    // 14. INDUSTRY CARDS — 3D PERSPECTIVE TILT
     // ============================================
     const industryCards = document.querySelectorAll('.industry-card');
     if (!isTouchDevice) {
@@ -879,8 +818,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 const y = e.clientY - rect.top;
                 const centerX = rect.width / 2;
                 const centerY = rect.height / 2;
-                const rotateX = ((y - centerY) / centerY) * -6;
-                const rotateY = ((x - centerX) / centerX) * 6;
+                const rotateX = ((y - centerY) / centerY) * -5;
+                const rotateY = ((x - centerX) / centerX) * 5;
 
                 gsap.to(card, {
                     rotateX: rotateX,
@@ -897,7 +836,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     rotateX: 0,
                     rotateY: 0,
                     y: 0,
-                    duration: 0.5,
+                    duration: 0.45,
                     ease: 'power2.out'
                 });
             });
@@ -905,7 +844,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ============================================
-    // 16. WORK CARDS — IMAGE SCALE & HOVER
+    // 15. WORK CARDS — IMAGE SCALE & HOVER
     // ============================================
     const workCards = document.querySelectorAll('.work-card');
     workCards.forEach(card => {
@@ -913,16 +852,16 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!img) return;
 
         card.addEventListener('mouseenter', () => {
-            gsap.to(img, { scale: 1.06, duration: 0.6, ease: 'power2.out' });
+            gsap.to(img, { scale: 1.05, duration: 0.5, ease: 'power2.out' });
         });
 
         card.addEventListener('mouseleave', () => {
-            gsap.to(img, { scale: 1, duration: 0.6, ease: 'power2.out' });
+            gsap.to(img, { scale: 1, duration: 0.5, ease: 'power2.out' });
         });
     });
 
     // ============================================
-    // 17. CONTACT FORM SUBMISSION & VALIDATION
+    // 16. CONTACT FORM SUBMISSION & VALIDATION
     // ============================================
     const contactForm = document.getElementById('contactForm');
     if (contactForm) {
@@ -962,26 +901,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ============================================
-    // 18. SMOOTH SCROLL TO ANCHORS
-    // ============================================
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', (e) => {
-            const href = anchor.getAttribute('href');
-            if (href === '#' || !href) return;
-            e.preventDefault();
-            const target = document.querySelector(href);
-            if (target) {
-                if (lenis) {
-                    lenis.scrollTo(target, { offset: -70, duration: 1.2 });
-                } else {
-                    target.scrollIntoView({ behavior: 'smooth' });
-                }
-            }
-        });
-    });
-
-    // ============================================
-    // 19. PROCESS TIMELINE PROGRESS LINE
+    // 17. PROCESS TIMELINE PROGRESS LINE
     // ============================================
     const processTimeline = document.querySelector('.process-timeline');
     const processLine = document.querySelector('.process-line');
@@ -1002,7 +922,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ============================================
-    // 20. TECH CHIPS STAGGER ANIMATION
+    // 18. TECH CHIPS STAGGER ANIMATION
     // ============================================
     const techCategories = document.querySelectorAll('.tech-category');
     techCategories.forEach(cat => {
@@ -1028,7 +948,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // ============================================
-    // 21. SECTION LABEL LINE ANIMATION
+    // 19. SECTION LABEL LINE ANIMATION
     // ============================================
     const labelLines = document.querySelectorAll('.label-line');
     labelLines.forEach(line => {
@@ -1049,7 +969,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // ============================================
-    // 22. INSIGHTS CARDS HOVER
+    // 20. INSIGHTS CARDS HOVER
     // ============================================
     const insightCards = document.querySelectorAll('.insight-card');
     insightCards.forEach(card => {
