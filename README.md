@@ -1,10 +1,36 @@
 # Aeon Software Services
 
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fankit-datatrainer%2Faeon-software)
+
 An award-level, high-performance agency website for **Aeon Software Services** — a full-spectrum software development enterprise delivering custom software, AI & ML, cloud engineering, mobile apps, and digital transformation solutions globally from India.
 
-Inspired by **Awwwards** (Stellar Management) design standards and **Infosys** corporate elegance.
+Inspired by **Awwwards** (Stellar Management) interactive design standards and **Infosys** corporate elegance.
 
 ![Aeon Software Services](https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1400&q=80)
+
+---
+
+## ⚡ 1-Click Vercel Deployment
+
+Deploying this website to **Vercel** takes under 60 seconds:
+
+### Option 1: Automatic via Vercel Dashboard (Recommended)
+1. Go to [vercel.com/new](https://vercel.com/new).
+2. Connect your GitHub account and select the **`aeon-software`** repository.
+3. Keep the default settings (**Framework Preset: Other / Static**).
+4. Click **Deploy**. Vercel will automatically detect `vercel.json` and deploy with instant global edge caching and SSL!
+
+### Option 2: Deploy with Vercel CLI
+```bash
+# Install Vercel CLI globally (if not installed)
+npm i -g vercel
+
+# Deploy to preview
+vercel
+
+# Deploy directly to production
+vercel --prod
+```
 
 ---
 
@@ -45,7 +71,7 @@ Inspired by **Awwwards** (Stellar Management) design standards and **Infosys** c
 
 ---
 
-## 🚀 Getting Started
+## 🚀 Local Development
 
 1. Clone the repository:
    ```bash
@@ -53,21 +79,17 @@ Inspired by **Awwwards** (Stellar Management) design standards and **Infosys** c
    cd aeon-software
    ```
 
-2. Open `index.html` in your web browser:
-   - On Windows: double-click `index.html` or run:
-     ```powershell
-     Start-Process index.html
-     ```
-   - Or serve with any local HTTP server:
-     ```bash
-     npx serve .
-     # or
-     python -m http.server 8000
-     ```
+2. Run locally:
+   ```bash
+   npx serve .
+   # or
+   npm run dev
+   # or double-click index.html in any browser
+   ```
 
 ---
 
-## 🛠️ Tech Stack
+## 🛠️ Tech Stack & Vercel Config
 
 - **HTML5** — Semantic, accessible markup
 - **CSS3** — Custom properties, CSS Grid, Flexbox, glassmorphism, fluid typography (`clamp`)
@@ -77,6 +99,7 @@ Inspired by **Awwwards** (Stellar Management) design standards and **Infosys** c
 - **ScrollToPlugin** — Smooth anchor navigation
 - **Lenis** — Modern smooth scroll library
 - **Google Fonts** — DM Sans font family
+- **Vercel (`vercel.json`)** — Security headers (HSTS, CSP, X-Frame-Options, X-Content-Type), clean URLs, immutable asset caching, and custom 404 handling.
 
 ---
 
