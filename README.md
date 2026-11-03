@@ -36,6 +36,9 @@ vercel --prod
 
 ## 🌟 Key Features
 
+- **Multi-Page Site (v2.1)**: `/` Home · `/about` · `/services` · `/cybersecurity` · `/industries` · `/work` · `/insights` · `/contact`, with animated page-transition curtains, per-page heroes and a shared header/footer.
+  - **About / Who We Are**: image collage with parallax, rotating "We are…" text tag, spinning circular text badge, scroll-scrubbed word highlight, mission & vision, values, a 2010→2026 journey timeline, culture gallery and global offices.
+
 - **v2 Redesign Highlights**:
   - **WebGL Hero (Three.js)**: High-DPI particle globe with travelling data arcs, orbit rings and a star field — reacts to the mouse and scroll, renders at up to 2× device pixel ratio for crisp 4K displays, pauses when off-screen, and falls back to the 2D canvas network when WebGL is unavailable.
   - **Core Capabilities**: Expanding pillars for **Web Development**, **Application Development** and **Cybersecurity** (hover / focus / keyboard on desktop, stacked cards on tablet & mobile).
@@ -92,11 +95,16 @@ vercel --prod
    npm run dev        # http://localhost:3000
    ```
 
-3. After upgrading a library (`gsap`, `three`) or editing `src/hero-scene.js`, rebuild the committed assets:
+3. Pages are composed from `src/pages/*.html` + shared `src/partials/` (head, header, footer, and sections such as `who`, `capabilities`, `cta`). **Edit those files, not the generated root `*.html`**, then run:
    ```bash
-   npm run build      # = npm run vendor (copies GSAP plugins to /vendor) + npm run build:scene (bundles Three.js hero to js/hero-scene.min.js)
+   npm run build:pages   # writes index.html, about.html, services.html, … to the project root
    ```
-   The site stays a zero-build static deployment — the generated files in `/vendor` and `js/hero-scene.min.js` are committed. Bump the `?v=` query on asset URLs in `index.html` when CSS/JS changes so returning visitors bypass the long-lived cache.
+
+4. After upgrading a library (`gsap`, `three`) or editing `src/hero-scene.js`, rebuild the committed assets:
+   ```bash
+   npm run build      # = vendor (GSAP → /vendor) + build:scene (Three.js hero) + build:pages (HTML pages)
+   ```
+   The site stays a zero-build static deployment — the generated files in `/vendor` and `js/hero-scene.min.js` are committed. Asset URLs carry `?v=<package.json version>` — bump the version when CSS/JS changes so returning visitors bypass the long-lived cache.
 
 ---
 

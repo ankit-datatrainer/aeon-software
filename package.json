@@ -1,13 +1,14 @@
 {
   "name": "aeon-software-services",
-  "version": "1.0.0",
+  "version": "2.1.0",
   "description": "Award-level agency website for Aeon Software Services",
   "scripts": {
     "start": "serve .",
     "dev": "serve . -l 3000",
     "vendor": "node scripts/vendor.mjs",
     "build:scene": "esbuild src/hero-scene.js --bundle --minify --format=iife --target=es2019 --legal-comments=none --outfile=js/hero-scene.min.js",
-    "build": "npm run vendor && npm run build:scene"
+    "build": "npm run vendor && npm run build:scene && npm run build:pages",
+    "build:pages": "node scripts/build-pages.mjs"
   },
   "keywords": [
     "agency",

@@ -413,13 +413,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
         mobileLinks.forEach(link => {
             link.addEventListener('click', (e) => {
-                e.preventDefault();
+                const target = link.getAttribute('href');
+                // Page links navigate normally (multi-page site); only in-page anchors are intercepted
+                if (target && target.startsWith('#')) e.preventDefault();
                 hamburger.classList.remove('active');
                 hamburger.classList.remove('open');
                 mobileMenu.classList.remove('active');
                 mobileMenu.classList.remove('open');
                 document.body.classList.remove('no-scroll');
-                const target = link.getAttribute('href');
                 if (target && target.startsWith('#')) {
                     const el = document.querySelector(target);
                     if (el) {
@@ -532,24 +533,45 @@ document.addEventListener('DOMContentLoaded', () => {
         let servicesST = null;
         let scrollDist = 2000;
 
+        const isMobileServices = () => window.matchMedia('(max-width: 768px)').matches;
+        const serviceCount = servicesTrack.querySelectorAll('.service-card').length || 12;
+
+        function setServiceIndicator(progress) {
+            if (progressFill) {
+                progressFill.style.width = `${Math.max(100 / serviceCount, progress * 100)}%`;
+            }
+            if (scCurrent) {
+                const cardIndex = Math.min(serviceCount, Math.max(1, Math.round(progress * (serviceCount - 1)) + 1));
+                scCurrent.textContent = cardIndex < 10 ? `0${cardIndex}` : `${cardIndex}`;
+            }
+        }
+
         function initHorizontalScroll() {
             // Clean up old triggers
             ScrollTrigger.getAll().forEach(st => {
                 if (st.trigger === servicesSection || st.trigger === servicesScrollWrap) st.kill();
             });
+            servicesST = null;
 
-            // On mobile (< 768px), allow native momentum swipe without pin
-            if (window.innerWidth < 768) {
+            // On phones (<= 768px, matching the CSS breakpoint) use a native swipe carousel without pin
+            if (isMobileServices()) {
                 gsap.set(servicesTrack, { clearProps: 'all' });
                 ScrollTrigger.refresh();
                 return;
             }
 
-            const totalScrollWidth = servicesTrack.scrollWidth - window.innerWidth + 100;
+            // The track has right padding, so travelling its overflow lands the last card in view
+            gsap.set(servicesTrack, { x: 0 });
+            const cards = servicesTrack.querySelectorAll('.service-card');
+            const lastCard = cards[cards.length - 1];
+            const endGap = parseFloat(getComputedStyle(servicesTrack).paddingRight) || 32;
+            const totalScrollWidth = lastCard
+                ? Math.ceil(lastCard.offsetLeft + lastCard.offsetWidth + endGap - servicesScrollWrap.clientWidth)
+                : servicesTrack.scrollWidth - window.innerWidth;
             if (totalScrollWidth <= 0) return;
 
             // Calibrated scroll distance so users glide easily without fatigue
-            scrollDist = Math.min(2200, Math.round(totalScrollWidth * 0.6));
+            scrollDist = Math.min(2600, Math.max(1200, Math.round(totalScrollWidth * 0.75)));
 
             horizontalTween = gsap.to(servicesTrack, {
                 x: -totalScrollWidth,
@@ -557,28 +579,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 scrollTrigger: {
                     trigger: servicesSection,
                     pin: true,
-                    scrub: 0.5,
+                    scrub: 0.6,
                     start: 'top top',
                     end: () => `+=${scrollDist}`,
                     invalidateOnRefresh: true,
                     anticipatePin: 1,
                     // Refresh the pin first so triggers further down account for its spacer
                     refreshPriority: 1,
-                    onUpdate: (self) => {
-                        servicesST = self;
-                        // Update progress bar
-                        if (progressFill) {
-                            const pct = Math.max(8.33, self.progress * 100);
-                            progressFill.style.width = `${pct}%`;
-                        }
-                        // Update live counter (01 to 12)
-                        if (scCurrent) {
-                            const cardIndex = Math.min(12, Math.max(1, Math.ceil(self.progress * 11) + 1));
-                            scCurrent.textContent = cardIndex < 10 ? `0${cardIndex}` : `${cardIndex}`;
-                        }
-                    }
+                    onUpdate: (self) => setServiceIndicator(self.progress)
                 }
             });
+            servicesST = horizontalTween.scrollTrigger;
             ScrollTrigger.sort();
             ScrollTrigger.refresh();
         }
@@ -589,39 +600,62 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         setTimeout(initHorizontalScroll, 300);
 
+        let servicesResizeTimer;
+        let lastServicesWidth = window.innerWidth;
         window.addEventListener('resize', () => {
-            clearTimeout(resizeTimer);
-            resizeTimer = setTimeout(initHorizontalScroll, 200);
+            // Ignore height-only resizes (mobile URL bar show/hide) to avoid re-pinning mid-scroll
+            if (window.innerWidth === lastServicesWidth) return;
+            lastServicesWidth = window.innerWidth;
+            clearTimeout(servicesResizeTimer);
+            servicesResizeTimer = setTimeout(initHorizontalScroll, 200);
         }, { passive: true });
 
-        // Prev & Next Buttons for 1-Click Smooth Card Navigation
-        if (prevBtn && nextBtn) {
-            nextBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                const step = scrollDist / 11;
-                window.scrollBy({ top: step, behavior: 'smooth' });
-            });
-
-            prevBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                const step = scrollDist / 11;
-                window.scrollBy({ top: -step, behavior: 'smooth' });
-            });
+        // Phones: keep counter + progress in sync with the native swipe
+        if (servicesScrollWrap) {
+            servicesScrollWrap.addEventListener('scroll', () => {
+                if (!isMobileServices()) return;
+                const max = servicesScrollWrap.scrollWidth - servicesScrollWrap.clientWidth;
+                setServiceIndicator(max > 0 ? servicesScrollWrap.scrollLeft / max : 0);
+            }, { passive: true });
         }
 
-        // Drag-to-Scroll on Services Track
+        // Prev & Next Buttons — jump exactly one card
+        function stepServices(dir) {
+            if (isMobileServices() || !servicesST) {
+                const card = servicesTrack.querySelector('.service-card');
+                const gap = parseFloat(getComputedStyle(servicesTrack).columnGap) || 20;
+                const step = card ? card.offsetWidth + gap : 300;
+                servicesScrollWrap.scrollBy({ left: dir * step, behavior: 'smooth' });
+                return;
+            }
+            const st = servicesST;
+            const steps = serviceCount - 1;
+            const current = Math.round(st.progress * steps);
+            const next = Math.min(steps, Math.max(0, current + dir));
+            const target = st.start + (next / steps) * (st.end - st.start);
+            gsap.to(window, { scrollTo: { y: target, autoKill: true }, duration: 0.9, ease: 'power3.inOut', overwrite: true });
+        }
+
+        if (prevBtn && nextBtn) {
+            nextBtn.addEventListener('click', (e) => { e.preventDefault(); stepServices(1); });
+            prevBtn.addEventListener('click', (e) => { e.preventDefault(); stepServices(-1); });
+        }
+
+        // Drag-to-Scroll on Services Track (desktop pinned mode)
         if (servicesScrollWrap) {
             let isDragging = false;
             let dragStartX = 0;
             let dragStartScrollY = 0;
 
             servicesScrollWrap.addEventListener('mousedown', (e) => {
-                // Ignore button clicks
+                // Ignore button clicks, and only drag while the section is pinned
                 if (e.target.closest('button') || e.target.closest('a')) return;
+                if (isMobileServices() || !servicesST || !servicesST.isActive) return;
                 isDragging = true;
                 dragStartX = e.pageX;
                 dragStartScrollY = window.scrollY;
                 servicesScrollWrap.style.cursor = 'grabbing';
+                e.preventDefault();
             });
 
             window.addEventListener('mouseup', () => {
@@ -632,10 +666,10 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             window.addEventListener('mousemove', (e) => {
-                if (!isDragging) return;
+                if (!isDragging || !servicesST) return;
                 const deltaX = e.pageX - dragStartX;
-                const targetY = dragStartScrollY - (deltaX * 1.6);
-                window.scrollTo({ top: targetY, behavior: 'auto' });
+                const targetY = Math.min(servicesST.end, Math.max(servicesST.start, dragStartScrollY - (deltaX * 1.6)));
+                window.scrollTo({ top: targetY, behavior: 'instant' });
             });
         }
 

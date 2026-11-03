@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | Aeon Software Services</title>
+    <meta name="description" content="Who we are — Aeon Software Services is an India-headquartered engineering partner building secure web, application and enterprise software for global clients since 2010.">
+    <meta name="keywords" content="software development, cybersecurity, penetration testing, managed SOC, application development, web development, mobile apps, AI, machine learning, cloud solutions, India, IT services">
+    <meta name="theme-color" content="#0a0a0a">
+    <meta name="author" content="Aeon Software Services">
+    <meta property="og:title" content="About Us | Aeon Software Services">
+    <meta property="og:description" content="Who we are — Aeon Software Services is an India-headquartered engineering partner building secure web, application and enterprise software for global clients since 2010.">
+    <meta property="og:type" content="website">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⬡</text></svg>">
+
+    <!-- Google Fonts - DM Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="/css/style.css?v=2.1.0">
+    <link rel="stylesheet" href="/css/experience.css?v=2.1.0">
+    <link rel="stylesheet" href="/css/pages.css?v=2.1.0">
+</head>
+<body class="page-about">
+
+    <!-- Page transition curtain (auto-hides via CSS even without JS) -->
+    <div class="page-transition" aria-hidden="true">
+        <div class="pt-layer pt-layer--accent"></div>
+        <div class="pt-layer pt-layer--dark"></div>
+        <div class="pt-logo"><span>Aeon</span><i>.</i></div>
+    </div>
+
+    <!-- Scroll progress + film grain -->
+    <div class="scroll-progress" aria-hidden="true"><span class="scroll-progress-fill"></span></div>
+    <div class="grain" aria-hidden="true"></div>
+
+    <!-- ============================================ -->
+    <!-- CUSTOM CURSOR -->
+    <!-- ============================================ -->
+    <div class="cursor-dot" id="cursorDot"></div>
+    <div class="cursor-ring" id="cursorRing"></div>
+
+    <!-- ============================================ -->
+    <!-- HEADER / NAVIGATION -->
+    <!-- ============================================ -->
+    <header class="header" id="header">
+        <nav class="nav container">
+            <a href="/" class="nav-logo" aria-label="Aeon Software Services — Home">
+                <span class="logo-text">Aeon</span><span class="logo-dot">.</span>
+                <span class="logo-sub">Software Services</span>
+            </a>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="/about" class="nav-link active" aria-current="page">Navigate Your Next</a></li>
+                <li><a href="/services" class="nav-link">Services</a></li>
+                <li><a href="/cybersecurity" class="nav-link">Cybersecurity</a></li>
+                <li><a href="/services#technologies" class="nav-link">Technologies</a></li>
+                <li><a href="/industries" class="nav-link">Industries</a></li>
+                <li><a href="/work" class="nav-link">Case Studies</a></li>
+                <li><a href="/insights" class="nav-link">Aeon Knowledge</a></li>
+            </ul>
+            <div class="nav-actions">
+                <a href="/contact" class="nav-ai-btn magnetic" data-magnetic>
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+                    <span>Ask Aeon</span>
+                </a>
+                <a href="/contact" class="nav-cta magnetic" data-magnetic>Let's Talk</a>
+                <button class="hamburger" id="hamburger" aria-label="Toggle Navigation">
+                    <span class="ham-line"></span>
+                    <span class="ham-line"></span>
+                    <span class="ham-line"></span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- ============================================ -->
+    <!-- MOBILE MENU OVERLAY -->
+    <!-- ============================================ -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-bg"></div>
+        <div class="mobile-menu-content">
+            <div class="mobile-nav-links">
+                <a href="/" class="mobile-link"><span class="ml-num">01</span><span class="ml-text">Home</span></a>
+                <a href="/about" class="mobile-link active"><span class="ml-num">02</span><span class="ml-text">About</span></a>
+                <a href="/services" class="mobile-link"><span class="ml-num">03</span><span class="ml-text">Services</span></a>
+                <a href="/cybersecurity" class="mobile-link"><span class="ml-num">04</span><span class="ml-text">Cybersecurity</span></a>
+                <a href="/industries" class="mobile-link"><span class="ml-num">05</span><span class="ml-text">Industries</span></a>
+                <a href="/work" class="mobile-link"><span class="ml-num">06</span><span class="ml-text">Work</span></a>
+                <a href="/insights" class="mobile-link"><span class="ml-num">07</span><span class="ml-text">Insights</span></a>
+                <a href="/contact" class="mobile-link"><span class="ml-num">08</span><span class="ml-text">Contact</span></a>
+            </div>
+            <div class="mobile-menu-footer">
+                <div class="mm-info">
+                    <p>info@aeonsoftware.in</p>
+                    <p>+91 98765 43210</p>
+                </div>
+                <div class="mm-socials">
+                    <a href="#" aria-label="LinkedIn">Li</a>
+                    <a href="#" aria-label="Twitter">Tw</a>
+                    <a href="#" aria-label="GitHub">Gh</a>
+                    <a href="#" aria-label="Dribbble">Dr</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <main id="main">
+<!-- ============================================ -->
+    <!-- PAGE HERO -->
+    <!-- ============================================ -->
+    <section class="page-hero" data-page-hero>
+        <div class="page-hero-media">
+            <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=2000&q=80" alt="" class="page-hero-img">
+        </div>
+        <div class="page-hero-overlay"></div>
+        <div class="container page-hero-content">
+            <nav class="breadcrumb" aria-label="Breadcrumb">
+                <a href="/">Home</a><span aria-hidden="true">/</span><span aria-current="page">About</span>
+            </nav>
+            <span class="page-hero-eyebrow">Navigate Your Next</span>
+            <h1 class="page-hero-title">People who engineer what's next.</h1>
+            <p class="page-hero-desc">
+                Fifteen years, 500+ solutions and one obsession: building secure, beautiful,
+                high-performance software that moves our clients forward.
+            </p>
+        </div>
+        <div class="container page-hero-meta">
+            <span>01 — About Aeon</span>
+            <span class="ph-scroll">Scroll<i></i></span>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- WHO WE ARE -->
+    <!-- ============================================ -->
+    <section class="section section-about section-who" id="about">
+        <div class="who-bg-word" aria-hidden="true">AEON</div>
+        <div class="container">
+            <div class="section-label reveal">
+                <span class="label-line"></span>
+                <span class="label-text">Who We Are</span>
+            </div>
+            <div class="who-grid">
+                <div class="who-left">
+                    <h2 class="section-title split-text">
+                        We craft digital experiences that redefine industries and inspire innovation.
+                    </h2>
+
+                    <p class="who-rotator reveal" aria-label="We are engineers, designers, defenders, strategists and partners">
+                        <span class="wr-static" aria-hidden="true">We are</span>
+                        <span class="wr-window" aria-hidden="true">
+                            <span class="wr-list">
+                                <span class="wr-word">engineers.</span>
+                                <span class="wr-word">designers.</span>
+                                <span class="wr-word">defenders.</span>
+                                <span class="wr-word">strategists.</span>
+                                <span class="wr-word">partners.</span>
+                            </span>
+                        </span>
+                    </p>
+
+                    <div class="about-paragraphs">
+                        <p class="who-lead scrub-text">
+                            Headquartered in India with a global footprint, Aeon Software Services
+                            has been at the forefront of digital transformation for over 15 years.
+                            We combine deep technical expertise with strategic thinking to build
+                            solutions that don't just meet today's needs — they anticipate tomorrow's
+                            challenges.
+                        </p>
+                        <p class="reveal">
+                            From startups to Fortune 500 enterprises, we partner with visionary
+                            organisations to turn ambitious ideas into powerful, scalable software
+                            solutions that drive measurable business impact across every industry.
+                        </p>
+                    </div>
+
+                    <ul class="who-tags" aria-label="What defines us">
+                        <li><span class="wt-dot"></span>Security by design</li>
+                        <li><span class="wt-dot"></span>Agile delivery squads</li>
+                        <li><span class="wt-dot"></span>Web &amp; app engineering</li>
+                        <li><span class="wt-dot"></span>24/7 support &amp; SOC</li>
+                        <li><span class="wt-dot"></span>AI-first thinking</li>
+                        <li><span class="wt-dot"></span>Global delivery from India</li>
+                    </ul>
+
+                    <div class="about-stats">
+                        <div class="stat-item reveal">
+                            <div class="stat-number"><span class="counter" data-target="15">0</span>+</div>
+                            <div class="stat-label">Years of Excellence</div>
+                        </div>
+                        <div class="stat-item reveal">
+                            <div class="stat-number"><span class="counter" data-target="500">0</span>+</div>
+                            <div class="stat-label">Projects Delivered</div>
+                        </div>
+                        <div class="stat-item reveal">
+                            <div class="stat-number"><span class="counter" data-target="200">0</span>+</div>
+                            <div class="stat-label">Global Clients</div>
+                        </div>
+                        <div class="stat-item reveal">
+                            <div class="stat-number"><span class="counter" data-target="350">0</span>+</div>
+                            <div class="stat-label">Expert Engineers</div>
+                        </div>
+                    </div>
+
+                    <a href="/about" class="btn btn-dark magnetic who-cta reveal" data-magnetic>
+                        <span class="btn-text">Discover Our Story</span>
+                        <span class="btn-icon">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
+                        </span>
+                    </a>
+                </div>
+
+                <div class="who-right">
+                    <div class="who-collage">
+                        <figure class="wc-photo wc-photo--main">
+                            <div class="parallax-wrap about-img" data-speed="0.08">
+                                <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=900&q=80" alt="Aeon Software team collaborating on a project" loading="lazy">
+                            </div>
+                        </figure>
+                        <figure class="wc-photo wc-photo--top" data-float="-60">
+                            <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=600&q=80" alt="Designers and engineers planning a product roadmap on a whiteboard" loading="lazy">
+                        </figure>
+                        <figure class="wc-photo wc-photo--bottom" data-float="50">
+                            <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=600&q=80" alt="Engineers pair-programming at a laptop" loading="lazy">
+                        </figure>
+
+                        <div class="about-img-badge">
+                            <span class="aib-label">Since</span>
+                            <span class="aib-year">2010</span>
+                        </div>
+
+                        <div class="who-orbit" aria-hidden="true">
+                            <svg viewBox="0 0 200 200">
+                                <defs>
+                                    <path id="whoCircle" d="M100,100 m-78,0 a78,78 0 1,1 156,0 a78,78 0 1,1 -156,0"/>
+                                </defs>
+                                <text>
+                                    <textPath href="#whoCircle">ENGINEERING · SECURITY · DESIGN · SINCE 2010 ·</textPath>
+                                </text>
+                            </svg>
+                            <span class="who-orbit-core">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
+                            </span>
+                        </div>
+
+                        <div class="who-float-card">
+                            <span class="wfc-value"><span class="counter" data-target="20">0</span>+</span>
+                            <span class="wfc-label">Countries served from our India delivery centres</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ============================================ -->
+    <!-- MISSION, VISION & VALUES -->
+    <!-- ============================================ -->
+    <section class="section section-values" id="values">
+        <div class="container">
+            <div class="mv-grid">
+                <article class="mv-card mv-card--mission reveal">
+                    <span class="mv-kicker">Our Mission</span>
+                    <p class="mv-text">To engineer secure, scalable software that helps ambitious organisations move faster — and to be the partner they trust with their most critical systems.</p>
+                </article>
+                <article class="mv-card mv-card--vision reveal">
+                    <span class="mv-kicker">Our Vision</span>
+                    <p class="mv-text">A world where every business, whatever its size, has access to world-class engineering and enterprise-grade security.</p>
+                </article>
+            </div>
+
+            <div class="section-label reveal">
+                <span class="label-line"></span>
+                <span class="label-text">What We Value</span>
+            </div>
+            <h2 class="section-title split-text">The principles behind every line of code.</h2>
+
+            <div class="values-grid">
+                <article class="value-card">
+                    <span class="vc-num">01</span>
+                    <div class="vc-icon"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M16 14L6 24l10 10M32 14l10 10-10 10M27 10l-6 28"/></svg></div>
+                    <h3 class="vc-title">Engineering Excellence</h3>
+                    <p class="vc-desc">Clean architecture, automated testing and code reviews on every pull request. We build software that is a pleasure to maintain.</p>
+                </article>
+                <article class="value-card">
+                    <span class="vc-num">02</span>
+                    <div class="vc-icon"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M24 4l16 6v12c0 10-6.8 18.4-16 22-9.2-3.6-16-12-16-22V10z"/><path d="M17 24l5 5 9-9"/></svg></div>
+                    <h3 class="vc-title">Security by Design</h3>
+                    <p class="vc-desc">Threat modelling, secure defaults and DevSecOps pipelines are part of how we work — not an afterthought bolted on at launch.</p>
+                </article>
+                <article class="value-card">
+                    <span class="vc-num">03</span>
+                    <div class="vc-icon"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="24" r="18"/><circle cx="24" cy="24" r="7"/><path d="M24 6v6M24 36v6M6 24h6M36 24h6"/></svg></div>
+                    <h3 class="vc-title">Radical Transparency</h3>
+                    <p class="vc-desc">Shared roadmaps, live dashboards and honest conversations. You always know what we're building, why, and how it's going.</p>
+                </article>
+                <article class="value-card">
+                    <span class="vc-num">04</span>
+                    <div class="vc-icon"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M24 40s-15-8.6-15-20a8.5 8.5 0 0115-5.5A8.5 8.5 0 0139 20c0 11.4-15 20-15 20z"/></svg></div>
+                    <h3 class="vc-title">Client Obsession</h3>
+                    <p class="vc-desc">We measure success by your outcomes — revenue, uptime, adoption — and stay long after launch to keep improving them.</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- OUR JOURNEY — TIMELINE -->
+    <!-- ============================================ -->
+    <section class="section section-journey" id="journey">
+        <div class="container">
+            <div class="journey-head">
+                <div>
+                    <div class="section-label reveal">
+                        <span class="label-line"></span>
+                        <span class="label-text">Our Journey</span>
+                    </div>
+                    <h2 class="section-title split-text">From a six-person studio to a global engineering partner.</h2>
+                </div>
+                <div class="journey-year" aria-hidden="true"><span class="jy-value">2010</span></div>
+            </div>
+
+            <ol class="journey-list">
+                <li class="journey-line" aria-hidden="true"><span class="journey-line-fill"></span></li>
+                <li class="journey-item" data-year="2010">
+                    <span class="ji-year">2010</span>
+                    <div class="ji-body">
+                        <h3 class="ji-title">Founded in Cyber City, Gurugram</h3>
+                        <p class="ji-desc">Aeon starts life as a six-person product engineering studio building web platforms for Indian start-ups.</p>
+                    </div>
+                </li>
+                <li class="journey-item" data-year="2013">
+                    <span class="ji-year">2013</span>
+                    <div class="ji-body">
+                        <h3 class="ji-title">Mobile &amp; enterprise practice</h3>
+                        <p class="ji-desc">Our first enterprise engagements and a dedicated iOS &amp; Android team take us beyond the web.</p>
+                    </div>
+                </li>
+                <li class="journey-item" data-year="2016">
+                    <span class="ji-year">2016</span>
+                    <div class="ji-body">
+                        <h3 class="ji-title">Bengaluru &amp; Hyderabad centres</h3>
+                        <p class="ji-desc">Two new delivery centres and our hundredth engineer — with QA automation and UI/UX studios in-house.</p>
+                    </div>
+                </li>
+                <li class="journey-item" data-year="2019">
+                    <span class="ji-year">2019</span>
+                    <div class="ji-body">
+                        <h3 class="ji-title">Cloud &amp; DevOps at scale</h3>
+                        <p class="ji-desc">We launch our cloud practice, migrating mission-critical workloads to AWS, Azure and GCP.</p>
+                    </div>
+                </li>
+                <li class="journey-item" data-year="2021">
+                    <span class="ji-year">2021</span>
+                    <div class="ji-body">
+                        <h3 class="ji-title">Pune centre &amp; AI practice</h3>
+                        <p class="ji-desc">A fourth Indian centre opens alongside our AI &amp; Machine Learning practice.</p>
+                    </div>
+                </li>
+                <li class="journey-item" data-year="2023">
+                    <span class="ji-year">2023</span>
+                    <div class="ji-body">
+                        <h3 class="ji-title">Cybersecurity division &amp; 24/7 SOC</h3>
+                        <p class="ji-desc">Offensive testing, managed detection &amp; response and compliance services protect our clients around the clock.</p>
+                    </div>
+                </li>
+                <li class="journey-item" data-year="2026">
+                    <span class="ji-year">2026</span>
+                    <div class="ji-body">
+                        <h3 class="ji-title">Singapore, Dubai &amp; 500+ solutions</h3>
+                        <p class="ji-desc">350+ engineers serving 200+ clients worldwide — and we're just getting started.</p>
+                    </div>
+                </li>
+            </ol>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- LIFE AT AEON — CULTURE GALLERY -->
+    <!-- ============================================ -->
+    <section class="section section-culture" id="culture">
+        <div class="container">
+            <div class="culture-head">
+                <div>
+                    <div class="section-label reveal">
+                        <span class="label-line"></span>
+                        <span class="label-text">Life at Aeon</span>
+                    </div>
+                    <h2 class="section-title split-text">A culture built for curious, kind and brilliant people.</h2>
+                </div>
+                <p class="section-subtitle reveal">Hackathons, design sprints, learning Fridays and a lot of whiteboards. We invest in our people because great software is built by people who love what they do.</p>
+            </div>
+            <div class="culture-grid">
+                <figure class="culture-item ci-1">
+                    <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=900&q=80" alt="Two colleagues celebrating a project milestone with a high five" loading="lazy">
+                    <figcaption>Celebrating every launch</figcaption>
+                </figure>
+                <figure class="culture-item ci-2">
+                    <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=700&q=80" alt="Team discussing ideas around laptops" loading="lazy">
+                    <figcaption>Design sprints</figcaption>
+                </figure>
+                <figure class="culture-item ci-3">
+                    <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=700&q=80" alt="Engineers attending an internal tech talk" loading="lazy">
+                    <figcaption>Learning Fridays</figcaption>
+                </figure>
+                <figure class="culture-item ci-4">
+                    <img src="https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=700&q=80" alt="Developers collaborating in an open-plan office" loading="lazy">
+                    <figcaption>Agile squads</figcaption>
+                </figure>
+                <figure class="culture-item ci-5">
+                    <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=900&q=80" alt="Overhead view of a team working together on laptops" loading="lazy">
+                    <figcaption>Hackathons</figcaption>
+                </figure>
+            </div>
+            <div class="culture-perks">
+                <div class="perk reveal"><span class="perk-value"><span class="counter" data-target="40">0</span>h</span><span class="perk-label">Learning budget per engineer, every year</span></div>
+                <div class="perk reveal"><span class="perk-value"><span class="counter" data-target="12">0</span></span><span class="perk-label">Internal hackathons a year</span></div>
+                <div class="perk reveal"><span class="perk-value"><span class="counter" data-target="4">0</span>.8★</span><span class="perk-label">Average employee rating</span></div>
+                <div class="perk reveal"><span class="perk-value"><span class="counter" data-target="38">0</span>%</span><span class="perk-label">Women in engineering &amp; leadership</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- GLOBAL PRESENCE -->
+    <!-- ============================================ -->
+    <section class="section section-offices" id="offices">
+        <div class="container">
+            <div class="section-label reveal">
+                <span class="label-line"></span>
+                <span class="label-text">Global Presence</span>
+            </div>
+            <h2 class="section-title split-text">Rooted in India. Delivering worldwide.</h2>
+            <div class="offices-grid">
+                <article class="office-card office-card--hq">
+                    <img src="https://images.unsplash.com/photo-1587474260584-136574528ed5?auto=format&fit=crop&w=1000&q=80" alt="India Gate, New Delhi, at dusk" loading="lazy">
+                    <div class="oc-body">
+                        <span class="oc-tag">Headquarters</span>
+                        <h3 class="oc-city">Gurugram</h3>
+                        <p class="oc-addr">Tower B, 12th Floor, Cyber Hub, Haryana 122002</p>
+                    </div>
+                </article>
+                <article class="office-card">
+                    <img src="https://images.unsplash.com/photo-1596176530529-78163a4f7af2?auto=format&fit=crop&w=800&q=80" alt="City skyline at night" loading="lazy">
+                    <div class="oc-body">
+                        <span class="oc-tag">Delivery Centre</span>
+                        <h3 class="oc-city">Bengaluru</h3>
+                    </div>
+                </article>
+                <article class="office-card">
+                    <img src="https://images.unsplash.com/photo-1525625293386-3f8f99389edd?auto=format&fit=crop&w=800&q=80" alt="Singapore Marina Bay skyline" loading="lazy">
+                    <div class="oc-body">
+                        <span class="oc-tag">APAC Office</span>
+                        <h3 class="oc-city">Singapore</h3>
+                    </div>
+                </article>
+                <article class="office-card">
+                    <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=800&q=80" alt="Dubai skyline at sunset" loading="lazy">
+                    <div class="oc-body">
+                        <span class="oc-tag">Middle East Office</span>
+                        <h3 class="oc-city">Dubai</h3>
+                    </div>
+                </article>
+                <article class="office-card office-card--text">
+                    <div class="oc-body">
+                        <span class="oc-tag">Delivery Centres</span>
+                        <h3 class="oc-city">Hyderabad &amp; Pune</h3>
+                        <p class="oc-addr">Engineering, QA and 24/7 support hubs.</p>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- CTA SECTION -->
+    <!-- ============================================ -->
+    <section class="section section-cta" id="cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2 class="cta-title split-text">
+                    Let's build something extraordinary together.
+                </h2>
+                <p class="cta-desc reveal">
+                    Ready to transform your business with cutting-edge software solutions?
+                    Let's start a conversation about your next big idea.
+                </p>
+                <a href="/contact" class="btn btn-primary btn-lg magnetic" data-magnetic>
+                    <span class="btn-text">Start Your Project</span>
+                    <span class="btn-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+                    </span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+
+    </main>
+
+    <!-- ============================================ -->
+    <!-- FOOTER -->
+    <!-- ============================================ -->
+    <footer class="footer" id="footer">
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <a href="/" class="footer-logo" aria-label="Aeon Software Services — Home">
+                        <span class="logo-text">Aeon</span><span class="logo-dot">.</span>
+                    </a>
+                    <p class="footer-tagline">Engineering Tomorrow's Digital Reality. India's premier full-spectrum software development partner for global enterprises.</p>
+                </div>
+                <div class="footer-links-grid">
+                    <div class="footer-col">
+                        <h4 class="fc-title">Company</h4>
+                        <ul class="fc-links">
+                            <li><a href="/about">About Us</a></li>
+                            <li><a href="/work">Case Studies</a></li>
+                            <li><a href="/insights">Blog & Insights</a></li>
+                            <li><a href="#">Careers</a></li>
+                            <li><a href="/industries">Industries</a></li>
+                            <li><a href="/contact">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h4 class="fc-title">Services</h4>
+                        <ul class="fc-links">
+                            <li><a href="/services">Custom Software</a></li>
+                            <li><a href="/services">Web Development</a></li>
+                            <li><a href="/services">Mobile Apps</a></li>
+                            <li><a href="/services">Cloud & DevOps</a></li>
+                            <li><a href="/services">AI & Machine Learning</a></li>
+                            <li><a href="/services">Data Analytics</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h4 class="fc-title">More Services</h4>
+                        <ul class="fc-links">
+                            <li><a href="/services">UI/UX Design</a></li>
+                            <li><a href="/cybersecurity">Cybersecurity</a></li>
+                            <li><a href="/cybersecurity#cyber-services">Penetration Testing</a></li>
+                            <li><a href="/cybersecurity#cyber-services">Managed SOC</a></li>
+                            <li><a href="/services">Blockchain</a></li>
+                            <li><a href="/services">IoT Solutions</a></li>
+                            <li><a href="/services">ERP & CRM</a></li>
+                            <li><a href="/services">QA & Testing</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h4 class="fc-title">Connect</h4>
+                        <ul class="fc-links">
+                            <li><a href="mailto:hello@aeonsoftware.in">hello@aeonsoftware.in</a></li>
+                            <li><a href="tel:+919876543210">+91 98765 43210</a></li>
+                            <li><a href="#">LinkedIn</a></li>
+                            <li><a href="#">Twitter / X</a></li>
+                            <li><a href="#">GitHub</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-wordmark" aria-hidden="true">
+                <span>A</span><span>E</span><span>O</span><span>N</span>
+            </div>
+            <div class="footer-bottom">
+                <p class="fb-copy">&copy; 2026 Aeon Software Services Pvt. Ltd. All rights reserved.</p>
+                <div class="fb-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Cookie Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to top -->
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">
+        <svg class="btt-ring" viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="22"/><circle class="btt-ring-fill" cx="24" cy="24" r="22"/></svg>
+        <svg class="btt-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+    </button>
+
+    <!-- GSAP 3.15 + plugins (installed via npm, vendored by `npm run vendor`) -->
+    <script src="/vendor/gsap/gsap.min.js"></script>
+    <script src="/vendor/gsap/ScrollTrigger.min.js"></script>
+    <script src="/vendor/gsap/ScrollToPlugin.min.js"></script>
+    <script src="/vendor/gsap/SplitText.min.js"></script>
+    <script src="/vendor/gsap/ScrambleTextPlugin.min.js"></script>
+    <script src="/vendor/gsap/DrawSVGPlugin.min.js"></script>
+    <!-- Main Script -->
+    <script src="/js/main.js?v=2.1.0"></script>
+    <!-- Experience layer: page transitions, capabilities, cybersecurity console, micro-interactions -->
+    <script src="/js/experience.js?v=2.1.0"></script>
+</body>
+</html>

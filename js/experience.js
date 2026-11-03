@@ -127,14 +127,28 @@ document.addEventListener('DOMContentLoaded', () => {
     // 4. PRE-SELECT SERVICE IN CONTACT FORM
     // ============================================
     const serviceSelect = document.getElementById('service');
+
+    function preselectService(value) {
+        if (!serviceSelect || !value) return false;
+        const option = Array.from(serviceSelect.options).find(o => o.value === value);
+        if (!option) return false;
+        serviceSelect.value = value;
+        serviceSelect.classList.add('is-preselected');
+        setTimeout(() => serviceSelect.classList.remove('is-preselected'), 2200);
+        return true;
+    }
+
+    // Arriving on /contact?service=… from a CTA on another page
+    preselectService(new URLSearchParams(window.location.search).get('service'));
+
+    // CTA on the same page as the form: fill it in and scroll there instead of reloading
     document.querySelectorAll('[data-service]').forEach(link => {
-        link.addEventListener('click', () => {
+        link.addEventListener('click', (e) => {
             if (!serviceSelect) return;
-            const value = link.dataset.service;
-            if (serviceSelect.querySelector(`option[value="${value}"]`)) {
-                serviceSelect.value = value;
-                serviceSelect.classList.add('is-preselected');
-                setTimeout(() => serviceSelect.classList.remove('is-preselected'), 2200);
+            if (preselectService(link.dataset.service)) {
+                e.preventDefault();
+                const form = serviceSelect.closest('form');
+                if (form) form.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'center' });
             }
         });
     });
@@ -288,7 +302,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 8. IMAGE CURTAIN REVEALS
     // ============================================
     if (!reduceMotion) {
-        document.querySelectorAll('.work-card .wc-img, .industry-card .ic-img, .about-img-wrap .about-img').forEach(wrap => {
+        document.querySelectorAll('.work-card .wc-img, .industry-card .ic-img, .about-img-wrap .about-img, .who-collage .wc-photo, .culture-item, .office-card:not(.office-card--text)').forEach(wrap => {
             gsap.fromTo(wrap,
                 { clipPath: 'inset(18% 8% 18% 8% round 18px)' },
                 {
@@ -314,6 +328,208 @@ document.addEventListener('DOMContentLoaded', () => {
             stagger: 0.08,
             ease: 'expo.out',
             scrollTrigger: { trigger: '.footer-wordmark', start: 'top 95%' }
+        });
+    }
+
+    // ============================================
+    // 10. PAGE TRANSITIONS (multi-page navigation)
+    // ============================================
+    const curtain = document.querySelector('.page-transition');
+    const normalizePath = (p) => (p.replace(/\.html$/, '').replace(/\/index$/, '/') || '/');
+
+    function internalPageUrl(link, e) {
+        if (!link || link.target === '_blank' || link.hasAttribute('download')) return null;
+        if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return null;
+        const href = link.getAttribute('href');
+        if (!href || href.startsWith('#') || /^(mailto|tel|javascript):/i.test(href)) return null;
+        const url = new URL(link.href, window.location.href);
+        if (url.origin !== window.location.origin) return null;
+        // Same page (e.g. /cybersecurity#cyber-services while on /cybersecurity): let the browser scroll
+        if (normalizePath(url.pathname) === normalizePath(window.location.pathname)) return null;
+        return url;
+    }
+
+    if (curtain && !reduceMotion) {
+        document.addEventListener('click', (e) => {
+            const url = internalPageUrl(e.target.closest('a'), e);
+            if (!url) return;
+            e.preventDefault();
+            curtain.classList.add('is-leaving');
+            setTimeout(() => { window.location.href = url.href; }, 650);
+        });
+    }
+
+    // Returning via back/forward cache: make sure the curtain is open again
+    window.addEventListener('pageshow', (e) => {
+        if (e.persisted && curtain) curtain.classList.remove('is-leaving');
+    });
+
+    // ============================================
+    // 11. INNER PAGE HERO INTRO
+    // ============================================
+    const pageHero = document.querySelector('[data-page-hero]');
+    if (pageHero) {
+        const heroImg = pageHero.querySelector('.page-hero-img');
+        const heroTitle = pageHero.querySelector('.page-hero-title');
+        let titleParts = [heroTitle];
+        if (heroTitle && typeof SplitText !== 'undefined') {
+            titleParts = SplitText.create(heroTitle, { type: 'words,lines', mask: 'lines', linesClass: 'split-line' }).words;
+        }
+        const introTL = gsap.timeline({ delay: 0.45, defaults: { ease: 'expo.out' } });
+        if (heroImg) introTL.fromTo(heroImg, { scale: 1.25 }, { scale: 1, duration: 2.4 }, 0);
+        introTL
+            .from(pageHero.querySelectorAll('.breadcrumb, .page-hero-eyebrow'), { y: 20, opacity: 0, duration: 0.9, stagger: 0.08 }, 0.15)
+            .from(titleParts, { yPercent: 115, rotate: 3, opacity: 0, duration: 1.2, stagger: 0.06 }, 0.25)
+            .from(pageHero.querySelectorAll('.page-hero-desc, .page-hero-meta'), { y: 24, opacity: 0, duration: 1, stagger: 0.12 }, 0.7);
+        if (reduceMotion) introTL.progress(1);
+
+        if (!reduceMotion) {
+            const heroScroll = { trigger: pageHero, start: 'top top', end: 'bottom top', scrub: true };
+            if (heroImg) gsap.to(pageHero.querySelector('.page-hero-media'), { yPercent: 20, ease: 'none', scrollTrigger: heroScroll });
+            gsap.to(pageHero.querySelector('.page-hero-content'), { yPercent: -18, opacity: 0.2, ease: 'none', scrollTrigger: { ...heroScroll } });
+        }
+    }
+
+    // ============================================
+    // 12. WHO WE ARE — TEXT & COLLAGE ANIMATION
+    // ============================================
+    // Rotating "We are …" text tag
+    const wrList = document.querySelector('.wr-list');
+    if (wrList && !reduceMotion) {
+        const words = wrList.querySelectorAll('.wr-word');
+        if (words.length > 1) {
+            wrList.appendChild(words[0].cloneNode(true)); // seamless loop
+            const step = 100 / (words.length + 1);
+            const rotTL = gsap.timeline({ repeat: -1 });
+            for (let i = 1; i <= words.length; i++) {
+                rotTL.to(wrList, { yPercent: -step * i, duration: 0.8, ease: 'expo.inOut' }, '+=1.4');
+            }
+            rotTL.set(wrList, { yPercent: 0 });
+            ScrollTrigger.create({
+                trigger: wrList,
+                start: 'top bottom',
+                end: 'bottom top',
+                onToggle: (self) => (self.isActive ? rotTL.play() : rotTL.pause())
+            });
+        }
+    }
+
+    // Paragraph that lights up word-by-word as you scroll
+    if (typeof SplitText !== 'undefined' && !reduceMotion) {
+        document.querySelectorAll('.scrub-text').forEach(p => {
+            const split = SplitText.create(p, { type: 'words' });
+            gsap.fromTo(split.words, { opacity: 0.16 }, {
+                opacity: 1,
+                stagger: 0.1,
+                ease: 'none',
+                scrollTrigger: { trigger: p, start: 'top 82%', end: 'bottom 50%', scrub: true }
+            });
+        });
+    }
+
+    // Capability tags pop in
+    const whoTags = document.querySelectorAll('.who-tags li');
+    if (whoTags.length && !reduceMotion) {
+        gsap.from(whoTags, {
+            y: 18,
+            opacity: 0,
+            scale: 0.85,
+            duration: 0.6,
+            stagger: 0.06,
+            ease: 'back.out(1.8)',
+            scrollTrigger: { trigger: '.who-tags', start: 'top 90%' }
+        });
+    }
+
+    // Collage photos drift at different speeds
+    if (!reduceMotion) {
+        document.querySelectorAll('[data-float]').forEach(el => {
+            gsap.fromTo(el, { y: 0 }, {
+                y: parseFloat(el.dataset.float) || 40,
+                ease: 'none',
+                scrollTrigger: { trigger: el.closest('.who-collage') || el, start: 'top bottom', end: 'bottom top', scrub: true }
+            });
+        });
+        const floatCard = document.querySelector('.who-float-card');
+        if (floatCard) {
+            gsap.from(floatCard, { x: 40, opacity: 0, duration: 1, ease: 'expo.out', scrollTrigger: { trigger: floatCard, start: 'top 90%' } });
+        }
+    }
+
+    // ============================================
+    // 13. ABOUT — VALUES, JOURNEY, CULTURE
+    // ============================================
+    if (!reduceMotion) {
+        const staggerIn = (selector, trigger) => {
+            const items = document.querySelectorAll(selector);
+            if (!items.length) return;
+            ScrollTrigger.batch(items, {
+                start: 'top 88%',
+                once: true,
+                onEnter: (batch) => gsap.fromTo(batch, { y: 50, opacity: 0 }, { y: 0, opacity: 1, duration: 1, stagger: 0.1, ease: 'expo.out', overwrite: true })
+            });
+            gsap.set(items, { opacity: 0 });
+        };
+        staggerIn('.value-card');
+        staggerIn('.services-grid .service-card');
+        staggerIn('.office-card--text');
+    }
+
+    const journey = document.querySelector('.journey-list');
+    if (journey) {
+        const fill = journey.querySelector('.journey-line-fill');
+        const yearEl = document.querySelector('.jy-value');
+        if (fill) {
+            gsap.fromTo(fill, { scaleY: 0 }, {
+                scaleY: 1,
+                ease: 'none',
+                scrollTrigger: { trigger: journey, start: 'top 60%', end: 'bottom 60%', scrub: 0.5 }
+            });
+        }
+        const setYear = (year) => {
+            if (!yearEl || yearEl.dataset.year === year) return;
+            yearEl.dataset.year = year;
+            if (hasScramble) gsap.to(yearEl, { duration: 0.7, scrambleText: { text: year, chars: '0123456789', speed: 0.7 } });
+            else yearEl.textContent = year;
+        };
+        journey.querySelectorAll('.journey-item').forEach(item => {
+            if (!reduceMotion) {
+                gsap.from(item.querySelectorAll('.ji-year, .ji-body'), {
+                    x: -30,
+                    opacity: 0,
+                    duration: 0.9,
+                    stagger: 0.1,
+                    ease: 'expo.out',
+                    scrollTrigger: { trigger: item, start: 'top 85%' }
+                });
+            }
+            ScrollTrigger.create({
+                trigger: item,
+                start: 'top 60%',
+                end: 'bottom 60%',
+                onToggle: (self) => {
+                    item.classList.toggle('is-active', self.isActive);
+                    if (self.isActive) setYear(item.dataset.year);
+                },
+                onEnter: () => item.classList.add('is-past'),
+                onLeaveBack: () => item.classList.remove('is-past')
+            });
+        });
+    }
+
+    // ============================================
+    // 14. NEWSLETTER (front-end validation only)
+    // ============================================
+    const newsletterForm = document.getElementById('newsletterForm');
+    if (newsletterForm) {
+        newsletterForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const input = newsletterForm.querySelector('input[type="email"]');
+            const status = newsletterForm.querySelector('.nl-status');
+            const ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.value.trim());
+            newsletterForm.classList.toggle('is-error', !ok);
+            if (status) status.textContent = ok ? 'Thanks — you’re on the list.' : 'Please enter a valid email address.';
+            if (ok) newsletterForm.reset();
         });
     }
 

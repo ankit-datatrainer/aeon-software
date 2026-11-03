@@ -1,0 +1,83 @@
+
+    <!-- Page transition curtain (auto-hides via CSS even without JS) -->
+    <div class="page-transition" aria-hidden="true">
+        <div class="pt-layer pt-layer--accent"></div>
+        <div class="pt-layer pt-layer--dark"></div>
+        <div class="pt-logo"><span>Aeon</span><i>.</i></div>
+    </div>
+
+    <!-- Scroll progress + film grain -->
+    <div class="scroll-progress" aria-hidden="true"><span class="scroll-progress-fill"></span></div>
+    <div class="grain" aria-hidden="true"></div>
+
+    <!-- ============================================ -->
+    <!-- CUSTOM CURSOR -->
+    <!-- ============================================ -->
+    <div class="cursor-dot" id="cursorDot"></div>
+    <div class="cursor-ring" id="cursorRing"></div>
+
+    <!-- ============================================ -->
+    <!-- HEADER / NAVIGATION -->
+    <!-- ============================================ -->
+    <header class="header" id="header">
+        <nav class="nav container">
+            <a href="/" class="nav-logo" aria-label="Aeon Software Services — Home">
+                <span class="logo-text">Aeon</span><span class="logo-dot">.</span>
+                <span class="logo-sub">Software Services</span>
+            </a>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="/about" class="nav-link{{cur:about}}"{{aria:about}}>Navigate Your Next</a></li>
+                <li><a href="/services" class="nav-link{{cur:services}}"{{aria:services}}>Services</a></li>
+                <li><a href="/cybersecurity" class="nav-link{{cur:cybersecurity}}"{{aria:cybersecurity}}>Cybersecurity</a></li>
+                <li><a href="/services#technologies" class="nav-link">Technologies</a></li>
+                <li><a href="/industries" class="nav-link{{cur:industries}}"{{aria:industries}}>Industries</a></li>
+                <li><a href="/work" class="nav-link{{cur:work}}"{{aria:work}}>Case Studies</a></li>
+                <li><a href="/insights" class="nav-link{{cur:insights}}"{{aria:insights}}>Aeon Knowledge</a></li>
+            </ul>
+            <div class="nav-actions">
+                <a href="/contact" class="nav-ai-btn magnetic" data-magnetic>
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+                    <span>Ask Aeon</span>
+                </a>
+                <a href="/contact" class="nav-cta magnetic" data-magnetic>Let's Talk</a>
+                <button class="hamburger" id="hamburger" aria-label="Toggle Navigation">
+                    <span class="ham-line"></span>
+                    <span class="ham-line"></span>
+                    <span class="ham-line"></span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- ============================================ -->
+    <!-- MOBILE MENU OVERLAY -->
+    <!-- ============================================ -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-bg"></div>
+        <div class="mobile-menu-content">
+            <div class="mobile-nav-links">
+                <a href="/" class="mobile-link{{cur:index}}"><span class="ml-num">01</span><span class="ml-text">Home</span></a>
+                <a href="/about" class="mobile-link{{cur:about}}"><span class="ml-num">02</span><span class="ml-text">About</span></a>
+                <a href="/services" class="mobile-link{{cur:services}}"><span class="ml-num">03</span><span class="ml-text">Services</span></a>
+                <a href="/cybersecurity" class="mobile-link{{cur:cybersecurity}}"><span class="ml-num">04</span><span class="ml-text">Cybersecurity</span></a>
+                <a href="/industries" class="mobile-link{{cur:industries}}"><span class="ml-num">05</span><span class="ml-text">Industries</span></a>
+                <a href="/work" class="mobile-link{{cur:work}}"><span class="ml-num">06</span><span class="ml-text">Work</span></a>
+                <a href="/insights" class="mobile-link{{cur:insights}}"><span class="ml-num">07</span><span class="ml-text">Insights</span></a>
+                <a href="/contact" class="mobile-link{{cur:contact}}"><span class="ml-num">08</span><span class="ml-text">Contact</span></a>
+            </div>
+            <div class="mobile-menu-footer">
+                <div class="mm-info">
+                    <p>info@aeonsoftware.in</p>
+                    <p>+91 98765 43210</p>
+                </div>
+                <div class="mm-socials">
+                    <a href="#" aria-label="LinkedIn">Li</a>
+                    <a href="#" aria-label="Twitter">Tw</a>
+                    <a href="#" aria-label="GitHub">Gh</a>
+                    <a href="#" aria-label="Dribbble">Dr</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <main id="main">
