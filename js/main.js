@@ -11,11 +11,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // Register GSAP plugins
     if (typeof gsap !== 'undefined') {
         gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+        if (typeof SplitText !== 'undefined') gsap.registerPlugin(SplitText);
     }
 
     // ============================================
     // 1. PRELOADER ANIMATION & FAILSAFE
     // ============================================
+    let heroTL = null;
     const preloader = document.getElementById('preloader');
     const plLetters = document.querySelectorAll('.pl-letter');
     const counterNum = document.querySelector('.counter-num');
@@ -87,13 +89,14 @@ document.addEventListener('DOMContentLoaded', () => {
             }, '<');
         }
 
-        // Failsafe timer: preloader MUST dismiss within 2.2 seconds no matter what
+        // Failsafe timer: preloader MUST dismiss within 3.5 seconds no matter what
+        // (the normal intro + slide-out finishes at ~2.6s)
         setTimeout(() => {
             if (preloader && preloader.style.display !== 'none') {
                 dismissPreloader();
                 triggerHeroAnimations();
             }
-        }, 2200);
+        }, 3500);
     }
 
     const urlParams = new URLSearchParams(window.location.search);
@@ -107,8 +110,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // ============================================
     // 2. HERO SECTION ENTRANCE ANIMATIONS
     // ============================================
-    let heroTL = null;
     function triggerHeroAnimations(jumpToEnd = false) {
+        // Run the intro only once, whichever of preloader-complete / failsafe fires first
+        if (heroTL) return;
         heroTL = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
         const heroBadge = document.querySelector('.hero-badge');
@@ -136,6 +140,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const heroButtons = document.querySelector('.hero-buttons');
         if (heroButtons) {
             heroTL.fromTo(heroButtons, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.7 }, '-=0.4');
+        }
+
+        const heroPillars = document.querySelectorAll('.hero-pillars li');
+        if (heroPillars.length) {
+            heroTL.fromTo(heroPillars, { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.6, stagger: 0.08 }, '-=0.45');
         }
 
         const scrollIndicator = document.querySelector('.hero-scroll-indicator');
@@ -181,7 +190,7 @@ document.addEventListener('DOMContentLoaded', () => {
             gsap.set(cursorRing, { x: ringX, y: ringY });
         });
 
-        const hoverTargets = document.querySelectorAll('a, button, [data-magnetic], input, select, textarea, .service-card, .work-card, .industry-card, .tech-chip');
+        const hoverTargets = document.querySelectorAll('a, button, [data-magnetic], input, select, textarea, .service-card, .work-card, .industry-card, .tech-chip, .pillar, .cyber-card');
 
         hoverTargets.forEach(el => {
             el.addEventListener('mouseenter', () => {
@@ -246,6 +255,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function drawParticles() {
         if (!ctx || !canvas) return;
+        // The Three.js hero scene replaces this 2D network once WebGL is running
+        if (document.documentElement.classList.contains('has-webgl')) return;
         const w = canvas.offsetWidth;
         const h = canvas.offsetHeight;
         ctx.clearRect(0, 0, w, h);
@@ -453,6 +464,25 @@ document.addEventListener('DOMContentLoaded', () => {
     // ============================================
     const splitTextEls = document.querySelectorAll('.split-text');
     splitTextEls.forEach(el => {
+        // Preferred path: GSAP SplitText with masked line + word reveal
+        if (typeof SplitText !== 'undefined') {
+            const split = SplitText.create(el, { type: 'words,lines', mask: 'lines', linesClass: 'split-line' });
+            gsap.from(split.words, {
+                yPercent: 115,
+                rotate: 4,
+                opacity: 0,
+                duration: 0.9,
+                stagger: 0.035,
+                ease: 'expo.out',
+                scrollTrigger: {
+                    trigger: el,
+                    start: 'top 88%',
+                    toggleActions: 'play none none none'
+                }
+            });
+            return;
+        }
+
         const text = el.textContent.trim();
         const words = text.split(/\s+/);
         el.innerHTML = '';
@@ -511,6 +541,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // On mobile (< 768px), allow native momentum swipe without pin
             if (window.innerWidth < 768) {
                 gsap.set(servicesTrack, { clearProps: 'all' });
+                ScrollTrigger.refresh();
                 return;
             }
 
@@ -531,6 +562,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     end: () => `+=${scrollDist}`,
                     invalidateOnRefresh: true,
                     anticipatePin: 1,
+                    // Refresh the pin first so triggers further down account for its spacer
+                    refreshPriority: 1,
                     onUpdate: (self) => {
                         servicesST = self;
                         // Update progress bar
@@ -546,6 +579,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 }
             });
+            ScrollTrigger.sort();
+            ScrollTrigger.refresh();
         }
 
         window.addEventListener('load', () => {

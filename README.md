@@ -2,7 +2,7 @@
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fankit-datatrainer%2Faeon-software)
 
-An award-level, high-performance agency website for **Aeon Software Services** — a full-spectrum software development enterprise delivering custom software, AI & ML, cloud engineering, mobile apps, and digital transformation solutions globally from India.
+An award-level, high-performance agency website for **Aeon Software Services** — a full-spectrum software development enterprise delivering cybersecurity, application development, web development, custom software, AI & ML, cloud engineering and digital transformation solutions globally from India.
 
 Inspired by **Awwwards** (Stellar Management) interactive design standards and **Infosys** corporate elegance.
 
@@ -36,6 +36,13 @@ vercel --prod
 
 ## 🌟 Key Features
 
+- **v2 Redesign Highlights**:
+  - **WebGL Hero (Three.js)**: High-DPI particle globe with travelling data arcs, orbit rings and a star field — reacts to the mouse and scroll, renders at up to 2× device pixel ratio for crisp 4K displays, pauses when off-screen, and falls back to the 2D canvas network when WebGL is unavailable.
+  - **Core Capabilities**: Expanding pillars for **Web Development**, **Application Development** and **Cybersecurity** (hover / focus / keyboard on desktop, stacked cards on tablet & mobile).
+  - **Cybersecurity Section**: Live SOC console (radar sweep, DrawSVG shield, ScrambleText threat feed, live counters), 8 security service cards, Assess → Harden → Monitor → Respond lifecycle and a compliance-framework marquee (ISO 27001, SOC 2, PCI DSS, HIPAA, GDPR, DPDP Act, NIST CSF, CERT-In…).
+  - **Micro-interactions**: GSAP SplitText masked headline reveals, decoding section labels, pointer-following spotlight cards, image curtain reveals, scroll progress bar, back-to-top progress ring, footer wordmark, film grain.
+  - **Accessibility**: Honors `prefers-reduced-motion`, keyboard-navigable capability pillars, visible focus states.
+
 - **Award-Level Kinetic Animations**:
   - **Preloader**: Letter stagger (`A-E-O-N`) with numerical progress ticker (0–100%) and curtain slide exit.
   - **Interactive Canvas Network**: HTML5 particle network reacting to mouse coordinates with real-time dynamic node connections.
@@ -44,7 +51,7 @@ vercel --prod
   - **Mouse Drag-to-Scroll**: Ability to click and drag across the cards track horizontally.
   - **Custom Cursor**: Trailing difference-blend ring with contextual action labels (`EXPLORE`, `VIEW`, `READ`, `DRAG`).
   - **Magnetic Buttons**: Interactive buttons that gravitate towards the cursor with elastic spring release.
-  - **Smooth Scrolling**: Integrated with **Lenis** smooth scroll engine.
+  - **Smooth Scrolling**: Native smooth scrolling with GSAP ScrollToPlugin for programmatic jumps.
   - **Testimonial Slider**: Auto-advancing slider with pause-on-hover, dot controls, and keyboard/button navigation.
 
 - **Typography & Aesthetics**:
@@ -79,13 +86,17 @@ vercel --prod
    cd aeon-software
    ```
 
-2. Run locally:
+2. Install the UI libraries and run locally:
    ```bash
-   npx serve .
-   # or
-   npm run dev
-   # or double-click index.html in any browser
+   npm install
+   npm run dev        # http://localhost:3000
    ```
+
+3. After upgrading a library (`gsap`, `three`) or editing `src/hero-scene.js`, rebuild the committed assets:
+   ```bash
+   npm run build      # = npm run vendor (copies GSAP plugins to /vendor) + npm run build:scene (bundles Three.js hero to js/hero-scene.min.js)
+   ```
+   The site stays a zero-build static deployment — the generated files in `/vendor` and `js/hero-scene.min.js` are committed. Bump the `?v=` query on asset URLs in `index.html` when CSS/JS changes so returning visitors bypass the long-lived cache.
 
 ---
 
@@ -94,10 +105,11 @@ vercel --prod
 - **HTML5** — Semantic, accessible markup
 - **CSS3** — Custom properties, CSS Grid, Flexbox, glassmorphism, fluid typography (`clamp`)
 - **JavaScript (ES6+)** — Modular vanilla JavaScript
-- **GSAP 3** — Animation timelines & tweening
+- **GSAP 3.15** (npm) — Animation timelines & tweening
 - **ScrollTrigger** — Viewport scroll-linked animations and pinned horizontal scroll
 - **ScrollToPlugin** — Smooth anchor navigation
-- **Lenis** — Modern smooth scroll library
+- **SplitText / ScrambleTextPlugin / DrawSVGPlugin** — Masked text reveals, decoding text, SVG line drawing
+- **Three.js r187** (npm, bundled with **esbuild**) — WebGL hero scene
 - **Google Fonts** — DM Sans font family
 - **Vercel (`vercel.json`)** — Security headers (HSTS, CSP, X-Frame-Options, X-Content-Type), clean URLs, immutable asset caching, and custom 404 handling.
 

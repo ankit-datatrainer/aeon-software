@@ -4,7 +4,10 @@
   "description": "Award-level agency website for Aeon Software Services",
   "scripts": {
     "start": "serve .",
-    "dev": "serve . -l 3000"
+    "dev": "serve . -l 3000",
+    "vendor": "node scripts/vendor.mjs",
+    "build:scene": "esbuild src/hero-scene.js --bundle --minify --format=iife --target=es2019 --legal-comments=none --outfile=js/hero-scene.min.js",
+    "build": "npm run vendor && npm run build:scene"
   },
   "keywords": [
     "agency",
@@ -13,11 +16,19 @@
     "gsap",
     "awwwards",
     "infosys",
-    "vercel"
+    "vercel",
+    "threejs",
+    "webgl",
+    "cybersecurity"
   ],
   "author": "Aeon Software Services",
   "license": "MIT",
   "devDependencies": {
+    "esbuild": "^0.25.10",
     "serve": "^14.2.4"
+  },
+  "dependencies": {
+    "gsap": "^3.15.0",
+    "three": "^0.187.0"
   }
 }
