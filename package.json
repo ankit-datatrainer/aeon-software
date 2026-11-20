@@ -1,7 +1,7 @@
 {
-  "name": "aeon-software-services",
+  "name": "neway-software-services",
   "version": "2.2.0",
-  "description": "Award-level agency website for Aeon Software Services",
+  "description": "Award-level agency website for Neway Software Services",
   "scripts": {
     "start": "serve .",
     "dev": "serve . -l 3000",
@@ -22,7 +22,7 @@
     "webgl",
     "cybersecurity"
   ],
-  "author": "Aeon Software Services",
+  "author": "Neway Software Services",
   "license": "MIT",
   "devDependencies": {
     "esbuild": "^0.25.10",

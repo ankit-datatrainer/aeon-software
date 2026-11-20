@@ -1,12 +1,12 @@
-# Aeon Software Services
+# Neway Software Services
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fankit-datatrainer%2Faeon-software)
 
-An award-level, high-performance agency website for **Aeon Software Services** — a full-spectrum software development enterprise delivering cybersecurity, application development, web development, custom software, AI & ML, cloud engineering and digital transformation solutions globally from India.
+An award-level, high-performance agency website for **Neway Software Services** — a full-spectrum software development enterprise delivering cybersecurity, application development, web development, custom software, AI & ML, cloud engineering and digital transformation solutions globally from India.
 
 Inspired by **Awwwards** (Stellar Management) interactive design standards and **Infosys** corporate elegance.
 
-![Aeon Software Services](https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1400&q=80)
+![Neway Software Services](https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1400&q=80)
 
 ---
 
@@ -59,7 +59,7 @@ vercel --prod
 
 - **Typography & Aesthetics**:
   - **Font**: Google **DM Sans** (`font-family: 'DM Sans'`) with fluid responsive typography.
-  - **Infosys-Inspired Floating Pill Navigation**: Frosted glassmorphism navbar (`Navigate Your Next`, `Services`, `Technologies`, `Industries`, `Case Studies`, `Aeon Knowledge`) with an **"Ask Aeon" AI Assistant pill**.
+  - **Infosys-Inspired Floating Pill Navigation**: Frosted glassmorphism navbar (`Navigate Your Next`, `Services`, `Technologies`, `Industries`, `Case Studies`, `Neway Knowledge`) with an **"Ask Neway" AI Assistant pill**.
   - **Indian Heritage & Global Delivery**: Headquartered in Cyber City Gurugram, India, with centres in Bengaluru, Hyderabad, and Pune.
 
 - **All Industry Software Services**:
@@ -125,4 +125,4 @@ vercel --prod
 
 ## 📄 License
 
-&copy; 2026 Aeon Software Services Pvt. Ltd. All rights reserved.
+&copy; 2026 Neway Software Services Pvt. Ltd. All rights reserved.

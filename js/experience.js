@@ -1,7 +1,7 @@
 'use strict';
 
 /* ==============================================================
-   AEON SOFTWARE SERVICES — EXPERIENCE LAYER
+   NEWAY SOFTWARE SERVICES — EXPERIENCE LAYER
    Capabilities pillars, live cybersecurity console, spotlight
    cards, scroll progress and other micro-interactions.
    Runs alongside main.js (GSAP 3.15 + SplitText / ScrambleText /

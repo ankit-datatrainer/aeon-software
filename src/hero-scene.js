@@ -1,5 +1,5 @@
 /* ==============================================================
-   AEON — HERO WEBGL SCENE (Three.js)
+   NEWAY — HERO WEBGL SCENE (Three.js)
    A high-DPI particle globe with travelling data arcs, orbit rings
    and a deep star field. Bundled to js/hero-scene.min.js via esbuild.
    ============================================================== */

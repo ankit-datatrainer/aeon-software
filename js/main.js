@@ -1,7 +1,7 @@
 'use strict';
 
 /* ==============================================================
-   AEON SOFTWARE SERVICES — MASTER JAVASCRIPT
+   NEWAY SOFTWARE SERVICES — MASTER JAVASCRIPT
    Award-Winning Interactive Animations & Kinetic Experiences
    100% Native, Fluid, Non-Blocking Architecture
    ============================================================== */
