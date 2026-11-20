@@ -1,6 +1,6 @@
 {
   "name": "aeon-software-services",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "Award-level agency website for Aeon Software Services",
   "scripts": {
     "start": "serve .",

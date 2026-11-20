@@ -255,6 +255,11 @@ select {
     margin-bottom: 2.5rem;
 }
 
+.pl-logo-img {
+    width: clamp(160px, 22vw, 240px);
+    height: auto;
+}
+
 .pl-letter {
     display: inline-block;
     font-size: clamp(2.5rem, 5vw, 4rem);
@@ -393,6 +398,12 @@ select {
     font-weight: 800;
     color: var(--text-light);
     letter-spacing: -0.03em;
+}
+
+.logo-img {
+    display: block;
+    height: 54px;
+    width: auto;
 }
 
 .logo-dot {
@@ -2309,6 +2320,10 @@ a.cd-value:hover {
     font-size: 1.8rem;
 }
 
+.footer-brand .logo-img {
+    height: 72px;
+}
+
 .footer-tagline {
     font-size: var(--fs-sm);
     color: rgba(255, 255, 255, 0.45);
@@ -2464,6 +2479,10 @@ a.cd-value:hover {
 
     .logo-sub {
         display: none;
+    }
+
+    .logo-img {
+        height: 44px;
     }
 
     /* About */
